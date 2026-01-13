@@ -1,4 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+.env
+.env.local
+node_modules
+.next
+public/uploads
+dev.db
+*.db
 
 # dependencies
 /node_modules
@@ -39,3 +46,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
+.env
+.env.local
+node_modules
+.next
+public/uploads
+dev.db
+*.db
+
