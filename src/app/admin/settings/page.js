@@ -1,6 +1,8 @@
+export const dynamic = "force-dynamic";
+
 import prisma from "@/lib/prisma";
 
-/* SERVER ACTION */
+
 async function saveSettings(formData) {
   "use server";
 
