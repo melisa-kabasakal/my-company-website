@@ -10,7 +10,6 @@ export default async function MessagesPage() {
 
   return (
     <div className="max-w-6xl">
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-white mb-1">
           Mesajlar
@@ -20,21 +19,18 @@ export default async function MessagesPage() {
         </p>
       </div>
 
-      {/* Empty */}
       {messages.length === 0 && (
         <div className="text-zinc-500 text-center py-20">
           Henüz mesaj yok.
         </div>
       )}
 
-      {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {messages.map((m) => (
           <div
             key={m.id}
             className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm hover:border-cyan-500/40 transition"
           >
-            {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-white font-medium text-lg">
@@ -49,12 +45,10 @@ export default async function MessagesPage() {
               </span>
             </div>
 
-            {/* Message */}
             <p className="text-zinc-300 text-sm leading-relaxed mb-5">
               {m.message}
             </p>
 
-            {/* Meta */}
             <div className="flex gap-4 text-xs text-zinc-400">
               <span>📞 {m.phone || "-"}</span>
               <span>🏢 {m.company || "-"}</span>

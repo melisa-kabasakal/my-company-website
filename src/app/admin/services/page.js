@@ -111,6 +111,17 @@ export default function AdminServicesPage() {
           </div>
 
           <input
+            type="text"
+            placeholder="Görsel URL (opsiyonel)"
+            value={form.image}
+            onChange={(e) =>
+              setForm({ ...form, image: e.target.value })
+            }
+            className="border border-zinc-800 bg-zinc-950 p-2 rounded w-full mb-2"
+          />
+
+
+          <input
             ref={fileRef}
             type="file"
             accept="image/*"
