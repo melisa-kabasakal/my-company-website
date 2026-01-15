@@ -1,4 +1,3 @@
-// src/app/components/About.js
 "use client";
 
 export default function AboutSection({ isVisible, scrollToSection }) {
@@ -15,8 +14,7 @@ export default function AboutSection({ isVisible, scrollToSection }) {
             <br />
             <span className="text-white">ve Mükemmellik</span>
           </h2>
-          
-          {/* DEĞİŞTİRİLEN METİN 1 */}
+      
           <p className="text-gray-400 text-lg leading-relaxed">
             MunTech, yenilikçi ve ileri görüşlü stratejilerle müşterilerine yüksek
             katma değerli sonuçlar sunmayı hedefleyen bir danışmanlık ve çözüm
@@ -25,14 +23,27 @@ export default function AboutSection({ isVisible, scrollToSection }) {
             desteklenmektedir.
           </p>
           
-          {/* DEĞİŞTİRİLEN METİN 2 */}
           <p className="text-gray-400 text-lg leading-relaxed">
-            Nisan 2025’te kurulan MunTech, hem yurt içi hem de yurt dışı
-            projelerde aktif rol alan deneyimli bir ekip tarafından
-            desteklenen dinamik bir girişimdir. Çözüm odaklı hizmet anlayışıyla
-            MunTech; Danışmanlık, BT Sistem Entegrasyonu, Yapay Zekâ ve Makine
-            Öğrenmesi (AI/ML), Bilgisayarlı Görü ve Teknik Proje Yönetimi
-            alanlarında uçtan uca hizmetler sunmaktadır.
+            Nisan 2025’te kurulan MunTech, hem yurt içi hem de yurt dışı projelerde
+            görev alan deneyimli profesyonellerden oluşan dinamik bir girişimdir.
+            Çözüm odaklı hizmet anlayışıyla MunTech; Danışmanlık, BT Sistem
+            Entegrasyonu, Yapay Zekâ ve Makine Öğrenmesi (AI/ML), Bilgisayarlı Görü
+            ve Teknik Proje Yönetimi alanlarında kapsamlı hizmetler sunmaktadır.
+            Ekip; Büyük Veri, Bulut Bilişim, Makine Öğrenmesi, Yapay Zekâ, İş
+            Zekâsı ve CRM gibi farklı alanlarda uçtan uca proje yaşam döngülerini
+            yönetmektedir.
+          </p>
+
+          <p className="text-gray-400 text-lg leading-relaxed">
+            MunTech ekibi, telekomünikasyon sektöründe köklü bir geçmişe sahip
+            profesyonellerden oluşmaktadır. Ekip üyeleri daha önce Vodafone
+            Türkiye, Türk Telekom, Turkcell, Siemens, Allianz, İSKİ, Digiturk ve
+            Millenicom gibi büyük kuruluşlarla birlikte çalışmıştır. Proje
+            deneyimleri; dijital dönüşüm, veri taşıma, veri ambarı, veri bilimi,
+            gelir güvence sistemleri, dolandırıcılık tespiti, öneri sistemleri,
+            müşteri kaybı (churn) analizi, risk yönetimi, alacak takibi, CRM,
+            sipariş yönetimi ile faturalama ve ücretlendirme sistemleri gibi geniş
+            bir alanı kapsamaktadır.
           </p>
 
           <div className="grid grid-cols-2 gap-6 pt-4">
@@ -56,7 +67,52 @@ export default function AboutSection({ isVisible, scrollToSection }) {
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-emerald-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </button>
         </div>
+
+        {/* GÖRSEL BLOK – HİÇ DOKUNULMADI */}
         <div className={`relative transition-all duration-1000 ${isVisible.about ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+          <div className="relative w-full h-[550px] rounded-3xl overflow-hidden border border-gray-800/50 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm">
+            <div className="absolute inset-0 opacity-30">
+              <div
+                className="absolute inset-0 animate-grid-flow"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(rgba(6,182,212,0.4) 2px, transparent 2px), linear-gradient(90deg, rgba(6,182,212,0.4) 2px, transparent 2px)',
+                  backgroundSize: '40px 40px'
+                }}
+              ></div>
+            </div>
+
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-96 h-96 bg-gradient-to-r from-blue-500 via-cyan-500 to-emerald-600 rounded-full blur-3xl opacity-30 animate-pulse-slow"></div>
+            </div>
+
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute rounded-full bg-gradient-to-r from-cyan-400 to-emerald-500 animate-float-particle"
+                style={{
+                  width: `${Math.random() * 8 + 4}px`,
+                  height: `${Math.random() * 8 + 4}px`,
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDuration: `${Math.random() * 5 + 3}s`,
+                  animationDelay: `${Math.random() * 2}s`
+                }}
+              ></div>
+            ))}
+
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center z-10">
+                <div className="text-8xl mb-6 animate-pulse-slow filter drop-shadow-2xl">⚡</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-500 bg-clip-text text-transparent animate-gradient">
+                  Teknoloji & İnovasyon
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-blue-500/20 to-transparent rounded-br-full animate-pulse-slow"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-emerald-600/20 to-transparent rounded-tl-full animate-pulse-slow"></div>
+          </div>
         </div>
 
       </div>
