@@ -1,9 +1,12 @@
 "use client";
+
 import { useTranslations } from "next-intl";
+import { useLocale } from "@/i18n/I18nProvider";
 import ServiceCard from "./ServiceCard";
 
 export default function ServicesSection({ services = [], isVisible }) {
   const t = useTranslations("services");
+  const { locale } = useLocale(); // ✅ EKSİK OLAN BUYDU
 
   return (
     <section id="services" className="py-32 px-6 relative" data-animate>
@@ -28,23 +31,37 @@ export default function ServicesSection({ services = [], isVisible }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, i) => (
-            <ServiceCard
-              key={service.id}
-              service={{
-                ...service,
-                features:
-                  Array.isArray(service.features)
-                    ? service.features
-                    : typeof service.features === "string"
-                    ? service.features.split(",").map(f => f.trim())
-                    : []
-              }}
-              index={i}
-              isVisible={isVisible.services}
-            />
-          ))}
+          {services.map((service, i) => {
+            let parsedFeatures = [];
 
+            if (typeof service.features === "string") {
+              try {
+                const obj = JSON.parse(service.features);
+                const raw = obj[locale] || obj.tr || "";
+                parsedFeatures = raw
+                  .split(",")
+                  .map(f => f.trim())
+                  .filter(Boolean);
+              } catch {
+                parsedFeatures = service.features
+                  .split(",")
+                  .map(f => f.trim())
+                  .filter(Boolean);
+              }
+            }
+
+            return (
+              <ServiceCard
+                key={service.id}
+                service={{
+                  ...service,
+                  features: parsedFeatures, // ✅ JSON BİTTİ
+                }}
+                index={i}
+                isVisible={isVisible.services}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
