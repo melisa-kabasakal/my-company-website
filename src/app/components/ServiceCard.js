@@ -25,7 +25,10 @@ export default function ServiceCard({ service, index, isVisible }) {
       const raw = obj[locale] || obj.tr || "";
       return raw.split(",").map(f => f.trim());
     } catch {
-      return service.features.split(",").map(f => f.trim());
+      if (Array.isArray(service.features)) return service.features;
+      if (typeof service.features === "string")
+        return service.features.split(",").map(f => f.trim());
+      return [];
     }
   })();
 

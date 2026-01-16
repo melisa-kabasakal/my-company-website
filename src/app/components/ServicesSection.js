@@ -31,18 +31,11 @@ export default function ServicesSection({ services = [], isVisible }) {
           {services.map((service, i) => (
             <ServiceCard
               key={service.id}
-              service={{
-                ...service,
-                features:
-                  typeof service.features === "string"
-                    ? service.features.split(",").map(f => f.trim())
-                    : Array.isArray(service.features)
-                    ? service.features
-                    : [],
-              }}
+              service={service}
               index={i}
               isVisible={isVisible.services}
             />
+
           ))}
         </div>
       </div>
