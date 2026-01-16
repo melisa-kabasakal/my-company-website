@@ -86,6 +86,9 @@
     "services": "Hizmetler",
     "about": "Hakkımızda",
     "contact": "İletişim"
+  },
+   "footer": {
+    "noServices": "Henüz hizmet yok"
   }
 }
 

@@ -84,5 +84,9 @@
     "services": "Services",
     "about": "About",
     "contact": "Contact"
+  },
+
+  "footer": {
+    "noServices": "No services yet"
   }
 }

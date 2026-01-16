@@ -33,9 +33,12 @@ export default function ServicesSection({ services = [], isVisible }) {
               key={service.id}
               service={{
                 ...service,
-                features: service.features
-                  ? service.features.split(",").map((f) => f.trim())
-                  : [],
+                features:
+                  typeof service.features === "string"
+                    ? service.features.split(",").map(f => f.trim())
+                    : Array.isArray(service.features)
+                    ? service.features
+                    : [],
               }}
               index={i}
               isVisible={isVisible.services}
