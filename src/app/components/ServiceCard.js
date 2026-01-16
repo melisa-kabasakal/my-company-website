@@ -64,15 +64,8 @@ export default function ServiceCard({ service, index, isVisible }) {
           </div>
         )}
 
-        {/* BAŞLIK – KAYBOLMAZ */}
-        <h3
-          className={`text-xl font-bold text-white mb-4
-          group-hover:bg-gradient-to-l
-          group-hover:${service.color}
-          group-hover:bg-clip-text
-          group-hover:text-transparent
-          transition-all duration-500`}
-        >
+        {/* BAŞLIK – KAYBOLMAZ, HER ZAMAN BEYAZ */}
+        <h3 className="text-xl font-bold text-white mb-4 transition-all duration-500">
           {title}
         </h3>
 
@@ -80,7 +73,7 @@ export default function ServiceCard({ service, index, isVisible }) {
           {description}
         </p>
 
-        {/* FEATURES + TİKLER */}
+        {/* FEATURES + MAVİ TİKLER */}
         <ul className="space-y-3">
           {features.map((feature, idx) => (
             <li
@@ -89,13 +82,7 @@ export default function ServiceCard({ service, index, isVisible }) {
               group-hover:text-gray-300 transition-colors duration-300"
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
-              <span
-                className={`mr-2 font-bold text-white
-                group-hover:bg-gradient-to-r
-                group-hover:${service.color}
-                group-hover:bg-clip-text
-                group-hover:text-transparent`}
-              >
+              <span className="mr-2 font-bold text-blue-500">
                 ✓
               </span>
               {feature}
@@ -104,12 +91,9 @@ export default function ServiceCard({ service, index, isVisible }) {
         </ul>
       </div>
 
-      {/* SAĞ ÜST IŞIK */}
-      <div className="pointer-events-none absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10">
-        <div
-          className={`absolute top-0 right-0 w-full h-full
-          bg-gradient-to-br ${service.color} blur-2xl`}
-        />
+      {/* SAĞ MAVİ IŞIKLANDIRMA */}
+      <div className="pointer-events-none absolute top-0 right-0 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0">
+        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-blue-500/40 via-blue-600/20 to-transparent blur-2xl" />
       </div>
     </div>
   );
