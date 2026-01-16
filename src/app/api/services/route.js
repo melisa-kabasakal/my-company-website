@@ -4,17 +4,29 @@ import prisma from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const services = await prisma.service.findMany();
+    const services = await prisma.$queryRawUnsafe(`
+      SELECT
+        id,
+        title,
+        description,
+        image,
+        features,
+        color
+      FROM "Service"
+      ORDER BY "createdAt" DESC
+    `);
+
     return new Response(JSON.stringify(services), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    console.error("SERVICES GET ERROR:", e);
-    return new Response(
-      JSON.stringify({ error: "internal error" }),
-      { status: 500 }
-    );
+    console.error("SERVICES RAW GET ERROR:", e);
+
+    return new Response(JSON.stringify([]), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
 
