@@ -3,97 +3,48 @@ export const runtime = "nodejs";
 import prisma from "@/lib/prisma";
 
 export async function GET() {
-  const services = await prisma.service.findMany({
-    orderBy: { createdAt: "desc" },
-  });
-  return Response.json(services);
+  try {
+    const services = await prisma.service.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    return Response.json(services);
+  } catch (err) {
+    console.error("GET /api/services ERROR", err);
+    return new Response(
+      JSON.stringify({ error: "services fetch failed" }),
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(req) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
+    const { title, description, image = "", features = "", color = "" } = body;
 
-  const {
-    title,
-    description,
-    image = "",
-    features = "",
-  } = body;
+    if (!title || !description) {
+      return new Response(
+        JSON.stringify({ error: "title ve description zorunlu" }),
+        { status: 400 }
+      );
+    }
 
-  const featuresString = Array.isArray(features)
-    ? features.join(", ")
-    : features;
+    await prisma.service.create({
+      data: {
+        title,
+        description,
+        image,
+        features,
+        color: color || "from-blue-500 to-cyan-500",
+      },
+    });
 
-  if (!title || !description) {
-    return Response.json(
-      { error: "title ve description zorunlu" },
-      { status: 400 }
+    return Response.json({ ok: true }, { status: 201 });
+  } catch (err) {
+    console.error("POST /api/services ERROR", err);
+    return new Response(
+      JSON.stringify({ error: "service create failed" }),
+      { status: 500 }
     );
   }
-
-  await prisma.service.create({
-    data: {
-      title,
-      description,
-      image,
-      features: featuresString,
-      color: "from-blue-500 to-cyan-500",
-    },
-  });
-
-  return Response.json({ ok: true }, { status: 201 });
-}
-
-export async function PUT(req) {
-  const body = await req.json();
-
-  const {
-    id,
-    title,
-    description,
-    image = "",
-    features = "",
-    color = "from-blue-500 to-cyan-500",
-  } = body;
-
-  if (!id) {
-    return Response.json(
-      { error: "id zorunlu" },
-      { status: 400 }
-    );
-  }
-
-  const featuresString = Array.isArray(features)
-    ? features.join(", ")
-    : features;
-
-  await prisma.service.update({
-    where: { id: Number(id) },
-    data: {
-      title,
-      description,
-      image,
-      features: featuresString,
-      color,
-    },
-  });
-
-  return Response.json({ ok: true });
-}
-
-export async function DELETE(req) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-
-  if (!id) {
-    return Response.json(
-      { error: "id zorunlu" },
-      { status: 400 }
-    );
-  }
-
-  await prisma.service.delete({
-    where: { id: Number(id) },
-  });
-
-  return Response.json({ ok: true });
 }
