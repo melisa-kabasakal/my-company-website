@@ -47,9 +47,10 @@ export default function ServiceCard({ service, index, isVisible }) {
     >
       {/* ARKA PLAN GLOW */}
       <div
-        className={`pointer-events-none absolute inset-0 bg-gradient-to-r ${service.color}
-        opacity-0 group-hover:opacity-10 rounded-3xl blur-xl
-        transition-opacity duration-700`}
+        className="pointer-events-none absolute inset-0
+        bg-gradient-to-r from-blue-500 to-cyan-500
+        opacity-0 group-hover:opacity-10
+        rounded-3xl blur-xl transition-opacity duration-700"
       />
 
       <div className="relative z-10">
@@ -64,8 +65,16 @@ export default function ServiceCard({ service, index, isVisible }) {
           </div>
         )}
 
-        {/* BAŞLIK – KAYBOLMAZ, HER ZAMAN BEYAZ */}
-        <h3 className="text-xl font-bold text-white mb-4 transition-all duration-500">
+        {/* BAŞLIK – ARTIK ASLA KAYBOLMAZ */}
+        <h3
+          className="text-xl font-bold text-white mb-4
+          group-hover:bg-gradient-to-r
+          group-hover:from-blue-500
+          group-hover:to-cyan-500
+          group-hover:bg-clip-text
+          group-hover:text-transparent
+          transition-all duration-500"
+        >
           {title}
         </h3>
 
@@ -73,7 +82,7 @@ export default function ServiceCard({ service, index, isVisible }) {
           {description}
         </p>
 
-        {/* FEATURES + MAVİ TİKLER */}
+        {/* FEATURES + ✓ */}
         <ul className="space-y-3">
           {features.map((feature, idx) => (
             <li
@@ -82,7 +91,11 @@ export default function ServiceCard({ service, index, isVisible }) {
               group-hover:text-gray-300 transition-colors duration-300"
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
-              <span className="mr-2 font-bold text-blue-500">
+              <span
+                className="mr-2 font-bold
+                bg-gradient-to-r from-blue-500 to-cyan-500
+                bg-clip-text text-transparent"
+              >
                 ✓
               </span>
               {feature}
@@ -91,9 +104,13 @@ export default function ServiceCard({ service, index, isVisible }) {
         </ul>
       </div>
 
-      {/* SAĞ MAVİ IŞIKLANDIRMA */}
-      <div className="pointer-events-none absolute top-0 right-0 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0">
-        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-blue-500/40 via-blue-600/20 to-transparent blur-2xl" />
+      {/* SAĞ ÜST IŞIK – GERİ GELDİ */}
+      <div className="pointer-events-none absolute top-0 right-0 w-20 h-20
+        opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10">
+        <div
+          className="absolute top-0 right-0 w-full h-full
+          bg-gradient-to-br from-blue-500 to-cyan-500 blur-2xl"
+        />
       </div>
     </div>
   );
