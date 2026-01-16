@@ -5,31 +5,35 @@ import { useLocale } from "@/i18n/I18nProvider";
 export default function ServiceCard({ service, index, isVisible }) {
   const { locale } = useLocale();
 
-  const parseField = (value) => {
+  const parseText = (value) => {
     if (!value) return "";
-    try {
-      const obj = JSON.parse(value);
-      return obj[locale] || obj.tr || "";
-    } catch {
-      return value;
+    if (typeof value === "string") {
+      try {
+        const obj = JSON.parse(value);
+        return obj[locale] || obj.tr || "";
+      } catch {
+        return value;
+      }
     }
+    return "";
   };
 
-  const title = parseField(service.title);
-  const description = parseField(service.description);
+  const title = parseText(service.title);
+  const description = parseText(service.description);
 
   const features = (() => {
     if (!service.features) return [];
-    try {
-      const obj = JSON.parse(service.features);
-      const raw = obj[locale] || obj.tr || "";
-      return raw.split(",").map(f => f.trim());
-    } catch {
-      if (Array.isArray(service.features)) return service.features;
-      if (typeof service.features === "string")
-        return service.features.split(",").map(f => f.trim());
-      return [];
+    if (typeof service.features === "string") {
+      try {
+        const obj = JSON.parse(service.features);
+        const raw = obj[locale] || obj.tr || "";
+        return raw.split(",").map(f => f.trim()).filter(Boolean);
+      } catch {
+        return service.features.split(",").map(f => f.trim()).filter(Boolean);
+      }
     }
+    if (Array.isArray(service.features)) return service.features.filter(Boolean);
+    return [];
   })();
 
   return (
@@ -41,13 +45,14 @@ export default function ServiceCard({ service, index, isVisible }) {
       ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
+      {/* ARKA PLAN GLOW */}
       <div
-        className={`absolute inset-0 bg-gradient-to-r ${service.color}
+        className={`pointer-events-none absolute inset-0 bg-gradient-to-r ${service.color}
         opacity-0 group-hover:opacity-10 rounded-3xl blur-xl
         transition-opacity duration-700`}
       />
 
-      <div className="relative">
+      <div className="relative z-10">
         {service.image && (
           <div className="relative w-full h-40 rounded-xl overflow-hidden mb-6">
             <img
@@ -59,6 +64,7 @@ export default function ServiceCard({ service, index, isVisible }) {
           </div>
         )}
 
+        {/* BAŞLIK – KAYBOLMAZ */}
         <h3
           className={`text-xl font-bold text-white mb-4
           group-hover:bg-gradient-to-l
@@ -74,6 +80,7 @@ export default function ServiceCard({ service, index, isVisible }) {
           {description}
         </p>
 
+        {/* FEATURES + TİKLER */}
         <ul className="space-y-3">
           {features.map((feature, idx) => (
             <li
@@ -83,8 +90,11 @@ export default function ServiceCard({ service, index, isVisible }) {
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
               <span
-                className={`bg-gradient-to-r ${service.color}
-                bg-clip-text text-transparent mr-2 font-bold`}
+                className={`mr-2 font-bold text-white
+                group-hover:bg-gradient-to-r
+                group-hover:${service.color}
+                group-hover:bg-clip-text
+                group-hover:text-transparent`}
               >
                 ✓
               </span>
@@ -94,7 +104,8 @@ export default function ServiceCard({ service, index, isVisible }) {
         </ul>
       </div>
 
-      <div className="absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+      {/* SAĞ ÜST IŞIK */}
+      <div className="pointer-events-none absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10">
         <div
           className={`absolute top-0 right-0 w-full h-full
           bg-gradient-to-br ${service.color} blur-2xl`}
