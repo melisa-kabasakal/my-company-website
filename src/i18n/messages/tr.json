@@ -55,10 +55,11 @@
  },
 
  "footer": {
-    "description": "Modern yazılım, dijital dönüşüm ve teknoloji çözümleri sunan profesyonel ekip. İşletmenizi geleceğe taşıyoruz.",
-    "quickLinks": "Hızlı Bağlantılar",
-    "servicesTitle": "Hizmetler",
-    "rights": "Tüm Hakları Saklıdır",
+  "description": "Modern yazılım, dijital dönüşüm...",
+  "quickLinks": "Hızlı Bağlantılar",
+  "servicesTitle": "Hizmetler",
+  "rights": "Tüm Hakları Saklıdır",
+  "noServices": "Henüz hizmet yok",
 
     "nav": {
       "home": "Ana Sayfa",
@@ -86,9 +87,6 @@
     "services": "Hizmetler",
     "about": "Hakkımızda",
     "contact": "İletişim"
-  },
-   "footer": {
-    "noServices": "Henüz hizmet yok"
   }
 }
 

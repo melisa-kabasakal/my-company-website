@@ -53,10 +53,11 @@
   },
 
   "footer": {
-    "description": "A professional team delivering modern software, digital transformation, and technology solutions. We take your business into the future.",
+    "description": "A professional team delivering modern software...",
     "quickLinks": "Quick Links",
     "servicesTitle": "Services",
     "rights": "All Rights Reserved",
+    "noServices": "No services yet",
 
     "nav": {
       "home": "Home",
@@ -84,9 +85,5 @@
     "services": "Services",
     "about": "About",
     "contact": "Contact"
-  },
-
-  "footer": {
-    "noServices": "No services yet"
   }
 }
