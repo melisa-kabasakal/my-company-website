@@ -4,14 +4,15 @@ import prisma from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const services = await prisma.service.findMany({
-      orderBy: { createdAt: "desc" },
+    const services = await prisma.service.findMany();
+    return new Response(JSON.stringify(services), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
     });
-    return Response.json(services);
-  } catch (err) {
-    console.error("GET /api/services ERROR", err);
+  } catch (e) {
+    console.error("SERVICES GET ERROR:", e);
     return new Response(
-      JSON.stringify({ error: "services fetch failed" }),
+      JSON.stringify({ error: "internal error" }),
       { status: 500 }
     );
   }
@@ -22,28 +23,21 @@ export async function POST(req) {
     const body = await req.json();
     const { title, description, image = "", features = "", color = "" } = body;
 
-    if (!title || !description) {
-      return new Response(
-        JSON.stringify({ error: "title ve description zorunlu" }),
-        { status: 400 }
-      );
-    }
-
     await prisma.service.create({
       data: {
         title,
         description,
         image,
         features,
-        color: color || "from-blue-500 to-cyan-500",
+        color,
       },
     });
 
-    return Response.json({ ok: true }, { status: 201 });
-  } catch (err) {
-    console.error("POST /api/services ERROR", err);
+    return new Response(JSON.stringify({ ok: true }), { status: 201 });
+  } catch (e) {
+    console.error("SERVICES POST ERROR:", e);
     return new Response(
-      JSON.stringify({ error: "service create failed" }),
+      JSON.stringify({ error: "internal error" }),
       { status: 500 }
     );
   }
