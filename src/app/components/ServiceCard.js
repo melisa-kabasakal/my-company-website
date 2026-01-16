@@ -5,6 +5,7 @@ import { useLocale } from "@/i18n/I18nProvider";
 export default function ServiceCard({ service, index, isVisible }) {
   const { locale } = useLocale();
 
+  // title & description burada kalabilir
   const parseText = (value) => {
     if (!value) return "";
     if (typeof value === "string") {
@@ -21,20 +22,10 @@ export default function ServiceCard({ service, index, isVisible }) {
   const title = parseText(service.title);
   const description = parseText(service.description);
 
-  const features = (() => {
-    if (!service.features) return [];
-    if (typeof service.features === "string") {
-      try {
-        const obj = JSON.parse(service.features);
-        const raw = obj[locale] || obj.tr || "";
-        return raw.split(",").map(f => f.trim()).filter(Boolean);
-      } catch {
-        return service.features.split(",").map(f => f.trim()).filter(Boolean);
-      }
-    }
-    if (Array.isArray(service.features)) return service.features.filter(Boolean);
-    return [];
-  })();
+  // ❗ FEATURES ARTIK HAZIR GELİYOR
+  const features = Array.isArray(service.features)
+    ? service.features
+    : [];
 
   return (
     <div
@@ -65,7 +56,6 @@ export default function ServiceCard({ service, index, isVisible }) {
           </div>
         )}
 
-        {/* BAŞLIK – ARTIK ASLA KAYBOLMAZ */}
         <h3
           className="text-xl font-bold text-white mb-4
           group-hover:bg-gradient-to-r
@@ -82,20 +72,14 @@ export default function ServiceCard({ service, index, isVisible }) {
           {description}
         </p>
 
-        {/* FEATURES + ✓ */}
         <ul className="space-y-3">
           {features.map((feature, idx) => (
             <li
               key={idx}
               className="text-sm text-gray-500 flex items-center
               group-hover:text-gray-300 transition-colors duration-300"
-              style={{ transitionDelay: `${idx * 100}ms` }}
             >
-              <span
-                className="mr-2 font-bold
-                bg-gradient-to-r from-blue-500 to-cyan-500
-                bg-clip-text text-transparent"
-              >
+              <span className="mr-2 font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
                 ✓
               </span>
               {feature}
@@ -104,13 +88,11 @@ export default function ServiceCard({ service, index, isVisible }) {
         </ul>
       </div>
 
-      {/* SAĞ ÜST IŞIK – GERİ GELDİ */}
+      {/* SAĞ ÜST IŞIK */}
       <div className="pointer-events-none absolute top-0 right-0 w-20 h-20
         opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10">
-        <div
-          className="absolute top-0 right-0 w-full h-full
-          bg-gradient-to-br from-blue-500 to-cyan-500 blur-2xl"
-        />
+        <div className="absolute top-0 right-0 w-full h-full
+          bg-gradient-to-br from-blue-500 to-cyan-500 blur-2xl" />
       </div>
     </div>
   );
