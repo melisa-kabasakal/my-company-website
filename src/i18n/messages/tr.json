@@ -1,0 +1,92 @@
+{
+  "services": {
+    "titleHighlight": "Kapsamlı",
+    "title": "Çözümler",
+    "description": "İşletmenizin ihtiyaçlarına özel, güvenilir ve ölçeklenebilir teknoloji hizmetleri."
+  },
+
+  "hero": {
+    "titleHighlight": "İşletmenizi",
+    "title": "Geleceğe Taşıyoruz",
+    "description": "Ölçeklenebilir, güvenli ve sürdürülebilir dijital sistemlerle işletmenizin potansiyelini maksimize edin.",
+    "primaryButton": "Hizmetleri Keşfet",
+    "secondaryButton": "Ücretsiz Danışmanlık"
+  },
+
+  "about": {
+    "titleHighlight": "İnovasyon",
+    "title": "ve Mükemmellik",
+
+    "introTitle": "GİRİŞ",
+    "introText": "MunTech, yenilikçi ve ileri görüşlü stratejilerle müşterilerine yüksek katma değerli sonuçlar sunmayı hedefleyen bir danışmanlık ve çözüm ortağıdır. Şirket, her biri sektörde 15 yılı aşkın deneyime sahip profesyonellerden oluşan güçlü bir ekip tarafından desteklenmektedir.",
+
+    "backgroundTitle": "KURUMSAL ARKA PLAN",
+    "backgroundText": "Nisan 2025’te kurulan MunTech, hem yurt içi hem de yurt dışı projelerde görev alan deneyimli profesyonellerden oluşan dinamik bir girişimdir. Çözüm odaklı hizmet anlayışıyla MunTech, dijital dönüşüm yolculuğundaki kurumlar için küresel ölçekte güvenilir bir iş ortağı olmayı hedeflemektedir. Kurumların teknolojik altyapılarını güçlendirmelerine ve rekabet avantajı elde etmelerine yardımcı olmak amacıyla MunTech; Danışmanlık, BT Sistem Entegrasyonu, Yapay Zekâ ve Makine Öğrenmesi (AI/ML), Bilgisayarlı Görü ve Teknik Proje Yönetimi alanlarında kapsamlı hizmetler sunmaktadır. Ekip, Büyük Veri, Bulut Bilişim, Makine Öğrenmesi, Yapay Zekâ, İş Zekâsı ve CRM gibi birçok alanda uçtan uca proje yaşam döngülerini yönetmektedir.",
+
+    "experienceTitle": "DENEYİM ÖZETİ",
+    "experienceText": "MunTech ekibi, telekomünikasyon sektöründe köklü bir geçmişe sahip profesyonellerden oluşmaktadır. Ekip üyeleri daha önce Vodafone Türkiye, Türk Telekom, Turkcell, Siemens, Allianz, İSKİ, Digiturk ve Millenicom gibi büyük kuruluşlarla birlikte çalışmıştır. Proje deneyimleri; dijital dönüşüm, veri taşıma, veri ambarı, veri bilimi, gelir güvence sistemleri, dolandırıcılık tespiti, öneri sistemleri, müşteri kaybı (churn) analizi, risk yönetimi, alacak takibi, CRM, sipariş yönetimi ile faturalama ve ücretlendirme sistemleri gibi geniş bir alanı kapsamaktadır.",
+
+    "experience": "Yıl Tecrübe",
+    "success": "Başarı Oranı",
+    "cta": "Bize Ulaşın",
+    "visualTitle": "Teknoloji & İnovasyon"
+  },
+
+  "contact": {
+    "titleHighlight": "Projenizi",
+    "title": "Konuşalım",
+    "description": "Size özel çözümler üretmek için sabırsızlanıyoruz. Ücretsiz danışmanlık için formu doldurun.",
+
+    "placeholders": {
+      "name": "Ad Soyad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "company": "Şirket",
+      "message": "Projeniz hakkında detaylı bilgi verin..."
+    },
+
+    "submit": "Ücretsiz Teklif Alın",
+
+    "success": "Form başarıyla gönderildi.",
+    "errors": {
+      "email": "Geçerli bir e-posta girin.",
+      "phone": "Telefon alanı zorunludur."
+    }
+ },
+
+ "footer": {
+    "description": "Modern yazılım, dijital dönüşüm ve teknoloji çözümleri sunan profesyonel ekip. İşletmenizi geleceğe taşıyoruz.",
+    "quickLinks": "Hızlı Bağlantılar",
+    "servicesTitle": "Hizmetler",
+    "rights": "Tüm Hakları Saklıdır",
+
+    "nav": {
+      "home": "Ana Sayfa",
+      "services": "Hizmetler",
+      "about": "Hakkımızda",
+      "contact": "İletişim"
+    },
+
+    "services": {
+      "software": "Yazılım Geliştirme",
+      "digital": "Dijital Dönüşüm",
+      "cloud": "Bulut Çözümleri",
+      "consulting": "Teknoloji Danışmanlığı"
+    },
+
+    "legal": {
+      "privacy": "Gizlilik Politikası",
+      "terms": "Kullanım Şartları",
+      "cookies": "Çerez Politikası"
+    }
+  },
+
+  "nav": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "about": "Hakkımızda",
+    "contact": "İletişim"
+  }
+}
+
+

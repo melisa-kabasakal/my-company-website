@@ -1,0 +1,88 @@
+{
+  "services": {
+    "titleHighlight": "Comprehensive",
+    "title": "Solutions",
+    "description": "Reliable and scalable technology services tailored to your business needs."
+  },
+  "hero": {
+    "titleHighlight": "We Take Your Business",
+    "title": "Into the Future",
+    "description": "Maximize your business potential with scalable, secure, and sustainable digital systems.",
+    "primaryButton": "Explore Services",
+    "secondaryButton": "Free Consultation"
+  },
+  "about": {
+    "titleHighlight": "Innovation",
+    "title": "and Excellence",
+
+    "introTitle": "INTRODUCTION",
+    "introText": "MunTech is a consultancy and solutions partner dedicated to delivering high-value outcomes for its clients through innovative and forward-thinking strategies. The company is powered by a team of seasoned professionals, each bringing over 15 years of industry experience.",
+
+    "backgroundTitle": "BACKGROUND",
+    "backgroundText": "Established in April 2025, MunTech is a dynamic startup supported by a team of experienced professionals engaged in both domestic and international projects. With a strong focus on solution-oriented services, MunTech aspires to become a globally trusted partner for organizations undertaking digital transformation. To help institutions enhance their technological infrastructure and remain competitive, MunTech provides a comprehensive suite of services, including Consultancy, IT System Integration, Artificial Intelligence & Machine Learning (AI/ML), Computer Vision, and Technical Project Management. Our team manages end-to-end project lifecycles across various domains such as Big Data, Cloud Computing, Machine Learning, Artificial Intelligence, Business Intelligence, and CRM.",
+
+    "experienceTitle": "SUMMARY OF EXPERIENCE",
+    "experienceText": "The MunTech team comprises professionals with a deep-rooted background in the telecommunications industry. Our staff members have previously collaborated with major organizations such as Vodafone Turkey, Türk Telekom, Turkcell, Siemens, Allianz, İSKİ, Digiturk, and Millenicom. Their project experience spans a wide range of areas including digital transformation, data migration, data warehousing, data science, revenue assurance, fraud detection, recommendation engines, churn scoring, risk management, debt collection, CRM, order management, and billing and charging systems.",
+
+    "experience": "Years of Experience",
+    "success": "Success Rate",
+    "cta": "Contact Us",
+    "visualTitle": "Technology & Innovation"
+  },
+
+  "contact": {
+    "titleHighlight": "Let’s Talk About",
+    "title": "Your Project",
+    "description": "We are excited to create tailored solutions for you. Fill out the form for a free consultation.",
+
+    "placeholders": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone",
+      "company": "Company",
+      "message": "Tell us about your project..."
+    },
+
+    "submit": "Get a Free Quote",
+
+    "success": "Form submitted successfully.",
+    "errors": {
+      "email": "Please enter a valid email address.",
+      "phone": "Phone number is required."
+    }
+  },
+
+  "footer": {
+    "description": "A professional team delivering modern software, digital transformation, and technology solutions. We take your business into the future.",
+    "quickLinks": "Quick Links",
+    "servicesTitle": "Services",
+    "rights": "All Rights Reserved",
+
+    "nav": {
+      "home": "Home",
+      "services": "Services",
+      "about": "About Us",
+      "contact": "Contact"
+    },
+
+    "services": {
+      "software": "Software Development",
+      "digital": "Digital Transformation",
+      "cloud": "Cloud Solutions",
+      "consulting": "Technology Consulting"
+    },
+
+    "legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "cookies": "Cookie Policy"
+    }
+  },
+
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact"
+  }
+}
