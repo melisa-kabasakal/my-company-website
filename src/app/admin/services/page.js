@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { supabase } from "@/lib/supabase";
 
 const UI_TEXT = {
   tr: {
@@ -11,9 +12,6 @@ const UI_TEXT = {
     featPh: "Özellikler (virgülle)",
     imgUrl: "Görsel URL (opsiyonel)",
     required: "Başlık ve açıklama zorunlu",
-    delete: "Sil",
-    edit: "Düzenle",
-    confirm: "silinsin mi?",
   },
   en: {
     title: "Services",
@@ -23,9 +21,6 @@ const UI_TEXT = {
     featPh: "Features (comma separated)",
     imgUrl: "Image URL (optional)",
     required: "Title and description are required",
-    delete: "Delete",
-    edit: "Edit",
-    confirm: "should be deleted?",
   },
 };
 
@@ -33,7 +28,6 @@ export default function AdminServicesPage() {
   const [lang, setLang] = useState("tr");
   const t = UI_TEXT[lang];
 
-  const [services, setServices] = useState([]);
   const [form, setForm] = useState({
     title: { tr: "", en: "" },
     description: { tr: "", en: "" },
@@ -43,39 +37,26 @@ export default function AdminServicesPage() {
 
   const fileRef = useRef(null);
 
-  const load = async () => {
-    const res = await fetch("/api/services");
-    const data = await res.json();
-    setServices(data);
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
-
+  /* 🔹 SUPABASE UPLOAD */
   const uploadImage = async (file) => {
-    const fd = new FormData();
-    fd.append("file", file);
+    const ext = file.name.split(".").pop();
+    const fileName = `${Date.now()}.${ext}`;
+    const filePath = `services/${fileName}`;
 
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: fd,
-    });
+    const { error } = await supabase.storage
+      .from("services")
+      .upload(filePath, file);
 
-    const contentType = res.headers.get("content-type") || "";
-
-    if (!res.ok || !contentType.includes("application/json")) {
-      console.error("UPLOAD FAILED", res.status);
+    if (error) {
       alert("Görsel yüklenemedi");
       return;
     }
 
-    const data = await res.json();
+    const { data } = supabase.storage
+      .from("services")
+      .getPublicUrl(filePath);
 
-    if (data?.url) {
-      setForm((p) => ({ ...p, image: data.url }));
-    }
+    setForm((p) => ({ ...p, image: data.publicUrl }));
   };
 
   const submit = async () => {
@@ -106,122 +87,88 @@ export default function AdminServicesPage() {
       features: { tr: "", en: "" },
       image: "",
     });
-
-    load();
   };
 
   return (
-    <div className="space-y-10 p-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{t.title}</h1>
+    <div className="p-8 max-w-2xl space-y-6">
+      <h1 className="text-2xl font-bold">{t.title}</h1>
 
-        <div className="flex gap-2">
-          {["tr", "en"].map((l) => (
-            <button
-              key={l}
-              onClick={() => setLang(l)}
-              className={`px-4 py-1 rounded ${
-                lang === l
-                  ? "bg-cyan-600 text-white"
-                  : "bg-zinc-800 text-zinc-400"
-              }`}
-            >
-              {l.toUpperCase()}
-            </button>
-          ))}
-        </div>
+      <input
+        placeholder={t.titlePh}
+        value={form.title[lang]}
+        onChange={(e) =>
+          setForm({ ...form, title: { ...form.title, [lang]: e.target.value } })
+        }
+        className="w-full p-2 border rounded"
+      />
+
+      {/* IMAGE */}
+      {form.image && (
+        <img src={form.image} className="h-32 object-cover rounded" />
+      )}
+
+      <div
+        onClick={() => fileRef.current.click()}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => {
+          e.preventDefault();
+          const file = e.dataTransfer.files?.[0];
+          if (file) uploadImage(file);
+        }}
+        className="p-4 border-dashed border text-center cursor-pointer"
+      >
+        Görsel sürükle-bırak veya tıkla
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl bg-zinc-900/60 p-6 rounded-xl border border-zinc-800">
-        <input
-          placeholder={t.titlePh}
-          value={form.title[lang]}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              title: { ...form.title, [lang]: e.target.value },
-            })
-          }
-          className="border border-zinc-800 bg-zinc-950 p-2 rounded"
-        />
+      <input
+        type="text"
+        placeholder={t.imgUrl}
+        value={form.image}
+        onChange={(e) => setForm({ ...form, image: e.target.value })}
+        className="w-full p-2 border rounded"
+      />
 
-        {/* GÖRSEL */}
-        <div className="col-span-full">
-          {form.image && (
-            <img
-              src={form.image}
-              className="h-32 rounded-lg object-cover mb-2 border border-zinc-800"
-            />
-          )}
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) uploadImage(file);
+        }}
+      />
 
-          <div
-            onClick={() => fileRef.current.click()}
-            onDragOver={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            onDrop={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const file = e.dataTransfer.files?.[0];
-              if (file) uploadImage(file);
-            }}
-            className="border border-dashed border-zinc-700 rounded-lg p-4 text-center cursor-pointer bg-zinc-950 hover:border-cyan-500 transition"
-          >
-            Görsel sürükle-bırak veya tıkla
-          </div>
+      <textarea
+        placeholder={t.descPh}
+        value={form.description[lang]}
+        onChange={(e) =>
+          setForm({
+            ...form,
+            description: { ...form.description, [lang]: e.target.value },
+          })
+        }
+        className="w-full p-2 border rounded"
+      />
 
-          <input
-            type="text"
-            placeholder={t.imgUrl}
-            value={form.image}
-            onChange={(e) => setForm({ ...form, image: e.target.value })}
-            className="border border-zinc-800 bg-zinc-950 p-2 rounded w-full mt-2"
-          />
+      <textarea
+        placeholder={t.featPh}
+        value={form.features[lang]}
+        onChange={(e) =>
+          setForm({
+            ...form,
+            features: { ...form.features, [lang]: e.target.value },
+          })
+        }
+        className="w-full p-2 border rounded"
+      />
 
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) uploadImage(file);
-            }}
-          />
-        </div>
-
-        <textarea
-          placeholder={t.descPh}
-          value={form.description[lang]}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              description: { ...form.description, [lang]: e.target.value },
-            })
-          }
-          className="border border-zinc-800 bg-zinc-950 p-2 rounded col-span-full"
-        />
-
-        <textarea
-          placeholder={t.featPh}
-          value={form.features[lang]}
-          onChange={(e) =>
-            setForm({
-              ...form,
-              features: { ...form.features, [lang]: e.target.value },
-            })
-          }
-          className="border border-zinc-800 bg-zinc-950 p-2 rounded col-span-full"
-        />
-
-        <button
-          onClick={submit}
-          className="bg-cyan-600 hover:bg-cyan-500 transition text-white py-2 rounded col-span-full"
-        >
-          {t.add}
-        </button>
-      </div>
+      <button
+        onClick={submit}
+        className="bg-cyan-600 text-white py-2 rounded"
+      >
+        {t.add}
+      </button>
     </div>
   );
 }
