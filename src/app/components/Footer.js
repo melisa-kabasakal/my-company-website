@@ -6,6 +6,8 @@ import { useLocale } from "@/i18n/I18nProvider";
 export default function Footer({ scrollToSection, services = [] }) {
   const t = useTranslations("footer");
   const { locale } = useLocale();
+  console.log("FOOTER SERVICES:", services);
+
 
   return (
     <footer className="relative border-t border-gray-800/50 py-16 backdrop-blur-sm">
@@ -71,10 +73,18 @@ export default function Footer({ scrollToSection, services = [] }) {
 
             <ul className="space-y-3">
               {services.map((service) => {
-                const title =
-                  typeof service.title === "string"
-                    ? service.title
-                    : service.title?.[locale] || service.title?.tr || "";
+                let title = "";
+
+                if (typeof service.title === "string") {
+                  try {
+                    const parsed = JSON.parse(service.title);
+                    title = parsed[locale] || parsed.tr || "";
+                  } catch {
+                    title = service.title;
+                  }
+                } else {
+                  title = service.title?.[locale] || service.title?.tr || "";
+                }
 
                 return (
                   <li key={service.id}>
@@ -87,6 +97,7 @@ export default function Footer({ scrollToSection, services = [] }) {
                   </li>
                 );
               })}
+
 
               {services.length === 0 && (
                 <li className="text-gray-600 text-sm">
