@@ -53,37 +53,38 @@ export default function AdminServicesPage() {
     load();
   }, []);
 
+
   const uploadImage = async (file) => {
-      try {
-        const fd = new FormData();
-        fd.append("file", file);
+    const fd = new FormData();
+    fd.append("file", file);
 
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          body: fd,
-        });
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: fd,
+    });
 
-        if (!res.ok) {
-          const text = await res.text();
-          console.error("UPLOAD ERROR:", text);
-          alert("Görsel yüklenemedi");
-          return;
-        }
+    const contentType = res.headers.get("content-type") || "";
 
-        const data = await res.json();
+    if (!res.ok || !contentType.includes("application/json")) {
+      console.error("UPLOAD FAILED", res.status);
+      alert("Görsel yüklenemedi");
+      return;
+    }
 
-        if (data?.url) {
-          setForm((p) => ({ ...p, image: data.url }));
-        }
-      } catch (err) {
-        console.error("UPLOAD CLIENT ERROR:", err);
-        alert("Upload sırasında hata oluştu");
-      }
-    };
+    const data = await res.json();
 
+    if (data?.url) {
+      setForm((p) => ({ ...p, image: data.url }));
+    }
+  };
 
   const submit = async () => {
-    if (!form.title.tr || !form.title.en || !form.description.tr || !form.description.en) {
+    if (
+      !form.title.tr ||
+      !form.title.en ||
+      !form.description.tr ||
+      !form.description.en
+    ) {
       alert(t.required);
       return;
     }
@@ -111,11 +112,9 @@ export default function AdminServicesPage() {
 
   return (
     <div className="space-y-10 p-8">
-      {/* HEADER */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">{t.title}</h1>
 
-        {/* DİL SEÇİCİ */}
         <div className="flex gap-2">
           {["tr", "en"].map((l) => (
             <button
@@ -133,7 +132,6 @@ export default function AdminServicesPage() {
         </div>
       </div>
 
-      {/* FORM (AYNI ARAYÜZ) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl bg-zinc-900/60 p-6 rounded-xl border border-zinc-800">
         <input
           placeholder={t.titlePh}
@@ -165,11 +163,8 @@ export default function AdminServicesPage() {
             onDrop={(e) => {
               e.preventDefault();
               e.stopPropagation();
-
               const file = e.dataTransfer.files?.[0];
-              if (file) {
-                uploadImage(file);
-              }
+              if (file) uploadImage(file);
             }}
             className="border border-dashed border-zinc-700 rounded-lg p-4 text-center cursor-pointer bg-zinc-950 hover:border-cyan-500 transition"
           >
@@ -180,9 +175,7 @@ export default function AdminServicesPage() {
             type="text"
             placeholder={t.imgUrl}
             value={form.image}
-            onChange={(e) =>
-              setForm({ ...form, image: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, image: e.target.value })}
             className="border border-zinc-800 bg-zinc-950 p-2 rounded w-full mt-2"
           />
 
