@@ -244,8 +244,16 @@ export default function AdminServicesPage() {
             className="flex justify-between items-center border p-3 rounded"
           >
             <div>
-              {JSON.parse(s.title).tr} / {JSON.parse(s.title).en}
-            </div>
+            {(() => {
+              const title =
+                typeof s.title === "string" && s.title.startsWith("{")
+                  ? JSON.parse(s.title)
+                  : { tr: s.title, en: s.title };
+
+              return `${title.tr} / ${title.en}`;
+            })()}
+          </div>
+
 
             <div className="flex gap-2">
               <button
