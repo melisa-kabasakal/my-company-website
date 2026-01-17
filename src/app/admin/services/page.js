@@ -37,7 +37,6 @@ export default function AdminServicesPage() {
 
   const fileRef = useRef(null);
 
-  /* 🔹 SUPABASE UPLOAD */
   const uploadImage = async (file) => {
     const ext = file.name.split(".").pop();
     const fileName = `${Date.now()}.${ext}`;
@@ -92,6 +91,21 @@ export default function AdminServicesPage() {
   return (
     <div className="p-8 max-w-2xl space-y-6">
       <h1 className="text-2xl font-bold">{t.title}</h1>
+      <div className="flex gap-2">
+        {["tr", "en"].map((l) => (
+          <button
+            key={l}
+            onClick={() => setLang(l)}
+            className={`px-4 py-1 rounded ${
+              lang === l
+                ? "bg-cyan-600 text-white"
+                : "bg-zinc-800 text-zinc-400"
+            }`}
+          >
+            {l.toUpperCase()}
+          </button>
+        ))}
+      </div>
 
       <input
         placeholder={t.titlePh}
