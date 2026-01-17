@@ -67,7 +67,7 @@ export default function AdminServicesPage() {
 
   return (
     <div className="p-8 max-w-5xl space-y-8">
-      <h1 className="text-2xl font-bold">Hizmet Ekle (TR | EN)</h1>
+      <h1 className="text-2xl font-bold">Hizmet Ekle</h1>
 
       <div className="space-y-2 max-w-md">
         {form.image && (
@@ -112,7 +112,7 @@ export default function AdminServicesPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-3">
-          <h2 className="font-semibold text-lg">🇹🇷 Türkçe</h2>
+          <h2 className="font-semibold text-lg">🇹Türkçe</h2>
 
           <input
             placeholder="Başlık (TR)"
@@ -152,7 +152,7 @@ export default function AdminServicesPage() {
         </div>
 
         <div className="space-y-3">
-          <h2 className="font-semibold text-lg">🇬🇧 English</h2>
+          <h2 className="font-semibold text-lg">🇬English</h2>
 
           <input
             placeholder="Title (EN)"
