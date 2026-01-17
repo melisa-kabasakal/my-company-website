@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function AdminServicesPage() {
+  const [services, setServices] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+
   const [form, setForm] = useState({
     title: { tr: "", en: "" },
     description: { tr: "", en: "" },
@@ -13,6 +16,15 @@ export default function AdminServicesPage() {
 
   const fileRef = useRef(null);
 
+  const loadServices = async () => {
+    const res = await fetch("/api/services");
+    const data = await res.json();
+    setServices(data);
+  };
+
+  useEffect(() => {
+    loadServices();
+  }, []);
 
   const uploadImage = async (file) => {
     const ext = file.name.split(".").pop();
@@ -42,14 +54,15 @@ export default function AdminServicesPage() {
       !form.description.tr ||
       !form.description.en
     ) {
-      alert("Lütfen Türkçe ve İngilizce alanların tamamını doldurun");
+      alert("Türkçe ve İngilizce alanların tamamını doldur");
       return;
     }
 
     await fetch("/api/services", {
-      method: "POST",
+      method: editingId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        id: editingId,
         title: JSON.stringify(form.title),
         description: JSON.stringify(form.description),
         features: JSON.stringify(form.features),
@@ -63,18 +76,36 @@ export default function AdminServicesPage() {
       features: { tr: "", en: "" },
       image: "",
     });
+
+    setEditingId(null);
+    loadServices();
+  };
+
+  const editService = (s) => {
+    setEditingId(s.id);
+    setForm({
+      title: JSON.parse(s.title),
+      description: JSON.parse(s.description),
+      features: JSON.parse(s.features),
+      image: s.image || "",
+    });
+  };
+
+  const deleteService = async (id) => {
+    if (!confirm("Silinsin mi?")) return;
+    await fetch(`/api/services?id=${id}`, { method: "DELETE" });
+    loadServices();
   };
 
   return (
-    <div className="p-8 max-w-5xl space-y-8">
-      <h1 className="text-2xl font-bold">Hizmet Ekle</h1>
+    <div className="p-8 max-w-6xl space-y-10">
+      <h1 className="text-2xl font-bold">
+        {editingId ? "Hizmeti Düzenle" : "Hizmet Ekle"}
+      </h1>
 
       <div className="space-y-2 max-w-md">
         {form.image && (
-          <img
-            src={form.image}
-            className="h-32 rounded object-cover border"
-          />
+          <img src={form.image} className="h-32 rounded object-cover border" />
         )}
 
         <div
@@ -110,7 +141,9 @@ export default function AdminServicesPage() {
         />
       </div>
 
+      {/* TR | EN */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* TR */}
         <div className="space-y-3">
           <h2 className="font-semibold text-lg">Türkçe</h2>
 
@@ -139,7 +172,7 @@ export default function AdminServicesPage() {
           />
 
           <textarea
-            placeholder="Özellikler (virgülle) (TR)"
+            placeholder="Özellikler (TR)"
             value={form.features.tr}
             onChange={(e) =>
               setForm({
@@ -150,6 +183,7 @@ export default function AdminServicesPage() {
             className="w-full p-2 border rounded"
           />
         </div>
+
 
         <div className="space-y-3">
           <h2 className="font-semibold text-lg">English</h2>
@@ -179,7 +213,7 @@ export default function AdminServicesPage() {
           />
 
           <textarea
-            placeholder="Features (comma separated) (EN)"
+            placeholder="Features (EN)"
             value={form.features.en}
             onChange={(e) =>
               setForm({
@@ -196,8 +230,41 @@ export default function AdminServicesPage() {
         onClick={submit}
         className="bg-cyan-600 hover:bg-cyan-500 transition text-white py-2 px-6 rounded"
       >
-        Hizmet Ekle
+        {editingId ? "Güncelle" : "Hizmet Ekle"}
       </button>
+
+      <hr />
+
+      <h2 className="text-xl font-semibold">Eklenen Hizmetler</h2>
+
+      <div className="space-y-3">
+        {services.map((s) => (
+          <div
+            key={s.id}
+            className="flex justify-between items-center border p-3 rounded"
+          >
+            <div>
+              {JSON.parse(s.title).tr} / {JSON.parse(s.title).en}
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => editService(s)}
+                className="bg-yellow-600 text-white px-3 py-1 rounded"
+              >
+                Düzenle
+              </button>
+
+              <button
+                onClick={() => deleteService(s.id)}
+                className="bg-red-600 text-white px-3 py-1 rounded"
+              >
+                Sil
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
