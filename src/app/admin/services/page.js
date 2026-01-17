@@ -144,12 +144,24 @@ export default function AdminServicesPage() {
 
           <div
             onClick={() => fileRef.current.click()}
-            className="border border-dashed border-zinc-700 rounded-lg p-4 text-center cursor-pointer bg-zinc-950"
+            onDragOver={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            onDrop={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+
+              const file = e.dataTransfer.files?.[0];
+              if (file) {
+                uploadImage(file);
+              }
+            }}
+            className="border border-dashed border-zinc-700 rounded-lg p-4 text-center cursor-pointer bg-zinc-950 hover:border-cyan-500 transition"
           >
             Görsel sürükle-bırak veya tıkla
           </div>
 
-          {/* ❗ GÖRSEL URL INPUTU BURADA – KALDIRILMADI */}
           <input
             type="text"
             placeholder={t.imgUrl}
