@@ -6,7 +6,7 @@ import ServiceCard from "./ServiceCard";
 
 export default function ServicesSection({ services = [], isVisible }) {
   const t = useTranslations("services");
-  const { locale } = useLocale(); // ✅ EKSİK OLAN BUYDU
+  const { locale } = useLocale(); 
 
   return (
     <section id="services" className="py-32 px-6 relative" data-animate>

@@ -54,19 +54,33 @@ export default function AdminServicesPage() {
   }, []);
 
   const uploadImage = async (file) => {
-    const fd = new FormData();
-    fd.append("file", file);
+      try {
+        const fd = new FormData();
+        fd.append("file", file);
 
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: fd,
-    });
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: fd,
+        });
 
-    const data = await res.json();
-    if (data?.url) {
-      setForm((p) => ({ ...p, image: data.url }));
-    }
-  };
+        if (!res.ok) {
+          const text = await res.text();
+          console.error("UPLOAD ERROR:", text);
+          alert("Görsel yüklenemedi");
+          return;
+        }
+
+        const data = await res.json();
+
+        if (data?.url) {
+          setForm((p) => ({ ...p, image: data.url }));
+        }
+      } catch (err) {
+        console.error("UPLOAD CLIENT ERROR:", err);
+        alert("Upload sırasında hata oluştu");
+      }
+    };
+
 
   const submit = async () => {
     if (!form.title.tr || !form.title.en || !form.description.tr || !form.description.en) {
