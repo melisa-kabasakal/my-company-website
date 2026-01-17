@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Navigation from "./components/Navigation";
 import BackgroundEffects from "./components/BackgroundEffects";
@@ -31,7 +32,10 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible((prev) => ({ ...prev, [entry.target.id]: true }));
+            setIsVisible((prev) => ({
+              ...prev,
+              [entry.target.id]: true,
+            }));
           }
         });
       },
@@ -50,16 +54,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/services")
+    fetch("/api/services", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -67,12 +69,23 @@ export default function Home() {
       <BackgroundEffects mousePosition={mousePosition} />
       <Navigation scrollY={scrollY} scrollToSection={scrollToSection} />
       <HeroSection scrollToSection={scrollToSection} />
-      <ServicesSection isVisible={isVisible} services={services} />
 
-      <AboutSection isVisible={isVisible} scrollToSection={scrollToSection} />
+      <ServicesSection
+        isVisible={isVisible}
+        services={services}
+      />
+
+      <AboutSection
+        isVisible={isVisible}
+        scrollToSection={scrollToSection}
+      />
+
       <ContactSection isVisible={isVisible} />
-      <Footer scrollToSection={scrollToSection} services={services} />
 
+      <Footer
+        scrollToSection={scrollToSection}
+        services={services}
+      />
     </div>
   );
 }
