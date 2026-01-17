@@ -40,11 +40,19 @@ export async function POST(req) {
 export async function PUT(req) {
   try {
     const body = await req.json();
-    const { id, title, description, image = "", features = "", color = "" } = body;
 
+    const id = Number(body.id);
     if (!id) {
       return Response.json({ error: "id required" }, { status: 400 });
     }
+
+    const {
+      title,
+      description,
+      image = "",
+      features = "",
+      color = "",
+    } = body;
 
     await prisma.service.update({
       where: { id },
@@ -57,7 +65,7 @@ export async function PUT(req) {
       },
     });
 
-    return Response.json({ ok: true });
+    return Response.json({ ok: true }, { status: 200 });
   } catch (e) {
     console.error("SERVICES PUT ERROR:", e);
     return Response.json({ error: "internal error" }, { status: 500 });
@@ -66,8 +74,17 @@ export async function PUT(req) {
 
 export async function DELETE(req) {
   try {
+    let id;
+
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+    const queryId = searchParams.get("id");
+
+    if (queryId) {
+      id = Number(queryId);
+    } else {
+      const body = await req.json();
+      id = Number(body.id);
+    }
 
     if (!id) {
       return Response.json({ error: "id required" }, { status: 400 });
@@ -83,3 +100,4 @@ export async function DELETE(req) {
     return Response.json({ error: "internal error" }, { status: 500 });
   }
 }
+
