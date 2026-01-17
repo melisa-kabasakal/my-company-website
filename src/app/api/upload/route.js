@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
@@ -8,19 +10,6 @@ cloudinary.config({
 
 export async function POST(req) {
   try {
-    console.log("UPLOAD ROUTE HIT");
-
-    if (
-      !process.env.CLOUDINARY_CLOUD_NAME ||
-      !process.env.CLOUDINARY_API_KEY ||
-      !process.env.CLOUDINARY_API_SECRET
-    ) {
-      return Response.json(
-        { error: "Cloudinary env eksik" },
-        { status: 500 }
-      );
-    }
-
     const formData = await req.formData();
     const file = formData.get("file");
 
@@ -33,8 +22,8 @@ export async function POST(req) {
 
     const uploadResult = await new Promise((resolve, reject) => {
       cloudinary.uploader
-        .upload_stream({ folder: "services" }, (error, result) => {
-          if (error) reject(error);
+        .upload_stream({ folder: "services" }, (err, result) => {
+          if (err) reject(err);
           else resolve(result);
         })
         .end(buffer);
@@ -42,12 +31,9 @@ export async function POST(req) {
 
     return Response.json({ url: uploadResult.secure_url });
   } catch (err) {
-    console.error("UPLOAD FAILED:", err);
-
     return Response.json(
-      { error: "Upload failed", message: String(err) },
+      { error: "upload failed", message: String(err) },
       { status: 500 }
     );
   }
 }
-
