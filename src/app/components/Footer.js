@@ -6,7 +6,7 @@ import { useLocale } from "@/i18n/I18nProvider";
 export default function Footer({ scrollToSection, services = [] }) {
   const t = useTranslations("footer");
   const { locale } = useLocale();
-  console.log("FOOTER SERVICES:", services);
+  
 
 
   return (
