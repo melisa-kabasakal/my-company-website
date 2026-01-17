@@ -1,8 +1,11 @@
 "use client";
+
 import { useTranslations } from "next-intl";
+import { useLocale } from "@/i18n/I18nProvider";
 
 export default function Footer({ scrollToSection, services = [] }) {
   const t = useTranslations("footer");
+  const { locale } = useLocale();
 
   return (
     <footer className="relative border-t border-gray-800/50 py-16 backdrop-blur-sm">
@@ -10,6 +13,7 @@ export default function Footer({ scrollToSection, services = [] }) {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
 
+          {/* LEFT */}
           <div className="md:col-span-2">
             <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-500 bg-clip-text text-transparent animate-gradient">
               muntech
@@ -19,7 +23,6 @@ export default function Footer({ scrollToSection, services = [] }) {
               {t("description")}
             </p>
 
-            {/* SOCIAL */}
             <div className="flex gap-4">
               {[
                 { name: "LinkedIn", href: "#" },
@@ -40,6 +43,7 @@ export default function Footer({ scrollToSection, services = [] }) {
             </div>
           </div>
 
+          {/* QUICK LINKS */}
           <div>
             <h4 className="text-white text-lg font-semibold mb-6">
               {t("quickLinks")}
@@ -59,22 +63,30 @@ export default function Footer({ scrollToSection, services = [] }) {
             </ul>
           </div>
 
+          {/* SERVICES */}
           <div>
             <h4 className="text-white text-lg font-semibold mb-6">
               {t("servicesTitle")}
             </h4>
 
             <ul className="space-y-3">
-              {services.map((service) => (
-                <li key={service.id}>
-                  <button
-                    onClick={() => scrollToSection("services")}
-                    className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block text-left w-full"
-                  >
-                    {service.title}
-                  </button>
-                </li>
-              ))}
+              {services.map((service) => {
+                const title =
+                  typeof service.title === "string"
+                    ? service.title
+                    : service.title?.[locale] || service.title?.tr || "";
+
+                return (
+                  <li key={service.id}>
+                    <button
+                      onClick={() => scrollToSection("services")}
+                      className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block text-left w-full"
+                    >
+                      {title}
+                    </button>
+                  </li>
+                );
+              })}
 
               {services.length === 0 && (
                 <li className="text-gray-600 text-sm">
@@ -85,6 +97,8 @@ export default function Footer({ scrollToSection, services = [] }) {
           </div>
 
         </div>
+
+        {/* BOTTOM */}
         <div className="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-600 text-sm flex items-center gap-2">
             © {new Date().getFullYear()} muntech
