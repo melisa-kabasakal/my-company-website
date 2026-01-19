@@ -1,20 +1,32 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function EditService() {
+  const router = useRouter();
   const { id } = useParams();
   const [f, setF] = useState(null);
+  const [checked, setChecked] = useState(false);
+
 
   useEffect(() => {
-    if (!id) return;
+    fetch("/api/admin/check")
+      .then((r) => {
+        if (!r.ok) router.replace("/admin/login");
+        else setChecked(true);
+      })
+      .catch(() => router.replace("/admin/login"));
+  }, [router]);
+
+  useEffect(() => {
+    if (!checked || !id) return;
     fetch(`/api/services/${id}`)
       .then(async (r) => (r.ok ? r.json() : null))
       .then((data) => data && setF(data));
-  }, [id]);
+  }, [checked, id]);
 
-  if (!f) return null;
+  if (!checked || !f) return null;
 
   const save = async () => {
     await fetch(`/api/services/${id}`, {

@@ -1,8 +1,10 @@
 export const dynamic = "force-dynamic";
 
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 import LogoutButton from "@/app/components/LogoutButton";
 import prisma from "@/lib/prisma";
-
 
 async function saveSettings(formData) {
   "use server";
@@ -17,6 +19,11 @@ async function saveSettings(formData) {
 }
 
 export default async function SettingsPage() {
+  const isAdmin = cookies().get("admin-auth");
+  if (!isAdmin) {
+    redirect("/admin/login");
+  }
+
   const settings =
     (await prisma.siteSettings.findFirst()) ??
     (await prisma.siteSettings.create({
@@ -25,7 +32,7 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-3xl">
-      {/* Header */}
+      {/* HEADER */}
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-white mb-1">
@@ -39,13 +46,12 @@ export default async function SettingsPage() {
         <LogoutButton />
       </div>
 
-
-      {/* Card */}
+      {/* CARD */}
       <form
         action={saveSettings}
         className="space-y-6 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm"
       >
-        {/* Email */}
+        {/* EMAIL */}
         <div className="space-y-1">
           <label className="text-sm text-zinc-400">Email</label>
           <input
@@ -56,7 +62,7 @@ export default async function SettingsPage() {
           />
         </div>
 
-        {/* Telefon */}
+        {/* TELEFON */}
         <div className="space-y-1">
           <label className="text-sm text-zinc-400">Telefon</label>
           <input
@@ -67,7 +73,7 @@ export default async function SettingsPage() {
           />
         </div>
 
-        {/* Adres */}
+        {/* ADRES */}
         <div className="space-y-1">
           <label className="text-sm text-zinc-400">Adres</label>
           <textarea
@@ -79,7 +85,7 @@ export default async function SettingsPage() {
           />
         </div>
 
-        {/* Save */}
+        {/* SAVE */}
         <div className="pt-4">
           <button
             type="submit"
