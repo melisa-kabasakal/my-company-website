@@ -8,7 +8,6 @@ export default function AdminServicesPage() {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
 
-  // 🔐 AUTH CHECK (CLIENT-SIDE)
   useEffect(() => {
     fetch("/api/admin/check")
       .then((r) => {
