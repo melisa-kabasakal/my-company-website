@@ -21,7 +21,8 @@ async function saveSettings(formData) {
 
 export default async function SettingsPage() {
   const cookieStore = cookies();
-  const isAdmin = cookieStore.get("admin-auth")?.value;
+  const isAdmin = cookieStore.has("admin-auth");
+
 
   if (!isAdmin) {
     redirect("/admin/login");
