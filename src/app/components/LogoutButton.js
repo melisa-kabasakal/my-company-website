@@ -12,10 +12,21 @@ export default function LogoutButton() {
 
   return (
     <button
-      onClick={handleLogout}
-      className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-500 transition"
+    onClick={handleLogout}
+    className="
+        rounded-lg
+        border border-blue-600
+        px-4 py-2
+        text-sm font-medium
+        text-blue-500
+        hover:bg-blue-600
+        hover:text-white
+        transition
+    "
     >
-      Çıkış Yap
+    Çıkış Yap
     </button>
+
   );
 }
+
