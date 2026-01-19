@@ -55,7 +55,7 @@ export default function ServicesSection({ services = [], isVisible }) {
                 key={service.id}
                 service={{
                   ...service,
-                  features: parsedFeatures, // ✅ JSON BİTTİ
+                  features: parsedFeatures, 
                 }}
                 index={i}
                 isVisible={isVisible.services}

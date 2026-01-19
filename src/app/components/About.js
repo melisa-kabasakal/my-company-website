@@ -7,8 +7,6 @@ export default function AboutSection({ isVisible, scrollToSection }) {
   return (
     <section id="about" className="py-32 px-6 relative" data-animate>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        
-        {/* TEXT BLOCK */}
         <div
           className={`space-y-8 transition-all duration-1000 ${
             isVisible.about
@@ -59,7 +57,6 @@ export default function AboutSection({ isVisible, scrollToSection }) {
           </button>
         </div>
 
-        {/* VISUAL BLOCK – TÜM EFEKTLER GERİ */}
         <div
           className={`relative transition-all duration-1000 ${
             isVisible.about
@@ -68,8 +65,6 @@ export default function AboutSection({ isVisible, scrollToSection }) {
           }`}
         >
           <div className="relative w-full h-[550px] rounded-3xl overflow-hidden border border-gray-800/50 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm">
-
-            {/* GRID */}
             <div className="absolute inset-0 opacity-30">
               <div
                 className="absolute inset-0 animate-grid-flow"
@@ -81,12 +76,10 @@ export default function AboutSection({ isVisible, scrollToSection }) {
               />
             </div>
 
-            {/* GLOW ORB */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-96 h-96 bg-gradient-to-r from-blue-500 via-cyan-500 to-emerald-600 rounded-full blur-3xl opacity-30 animate-pulse-slow" />
             </div>
 
-            {/* FLOATING PARTICLES */}
             {[...Array(12)].map((_, i) => (
               <div
                 key={i}
@@ -101,8 +94,6 @@ export default function AboutSection({ isVisible, scrollToSection }) {
                 }}
               />
             ))}
-
-            {/* CENTER ICON */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
               <div className="text-center">
                 <div className="text-8xl mb-6 animate-pulse-slow">⚡</div>
@@ -112,7 +103,6 @@ export default function AboutSection({ isVisible, scrollToSection }) {
               </div>
             </div>
 
-            {/* CORNER LIGHTS */}
             <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-blue-500/20 to-transparent rounded-br-full animate-pulse-slow" />
             <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-emerald-600/20 to-transparent rounded-tl-full animate-pulse-slow" />
 

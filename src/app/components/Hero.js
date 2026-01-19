@@ -9,9 +9,8 @@ export default function HeroSection({ scrollToSection }) {
       id="home"
       className="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden"
     >
-      {/* Animated Tech Background */}
+
       <div className="absolute inset-0 z-0">
-        {/* Grid Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div
             className="absolute inset-0"
@@ -23,8 +22,6 @@ export default function HeroSection({ scrollToSection }) {
             }}
           />
         </div>
-
-        {/* Floating Particles */}
         {[...Array(30)].map((_, i) => (
           <div
             key={i}
@@ -47,7 +44,6 @@ export default function HeroSection({ scrollToSection }) {
           />
         ))}
 
-        {/* Glowing Orbs */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow" />
         <div
           className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl animate-pulse-slow"
@@ -58,7 +54,6 @@ export default function HeroSection({ scrollToSection }) {
           style={{ animationDelay: "2s" }}
         />
 
-        {/* Connecting Lines */}
         {[...Array(8)].map((_, i) => (
           <div
             key={`line-${i}`}

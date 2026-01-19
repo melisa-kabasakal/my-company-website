@@ -14,8 +14,6 @@ export default function Footer({ scrollToSection, services = [] }) {
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-
-          {/* LEFT */}
           <div className="md:col-span-2">
             <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-500 bg-clip-text text-transparent animate-gradient">
               muntech
@@ -44,8 +42,6 @@ export default function Footer({ scrollToSection, services = [] }) {
               ))}
             </div>
           </div>
-
-          {/* QUICK LINKS */}
           <div>
             <h4 className="text-white text-lg font-semibold mb-6">
               {t("quickLinks")}

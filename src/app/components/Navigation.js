@@ -53,7 +53,7 @@ export default function Navigation({ scrollY, scrollToSection }) {
             </button>
           ))}
 
-          {/* 🌍 LANGUAGE SWITCH */}
+          {/* LANGUAGE SWITCH */}
           <div className="flex items-center rounded-full bg-zinc-800/80 border border-zinc-700 p-1">
             {["tr", "en"].map((lng) => (
               <button

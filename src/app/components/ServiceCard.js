@@ -4,8 +4,6 @@ import { useLocale } from "@/i18n/I18nProvider";
 
 export default function ServiceCard({ service, index, isVisible }) {
   const { locale } = useLocale();
-
-  // title & description burada kalabilir
   const parseText = (value) => {
     if (!value) return "";
     if (typeof value === "string") {
@@ -22,7 +20,6 @@ export default function ServiceCard({ service, index, isVisible }) {
   const title = parseText(service.title);
   const description = parseText(service.description);
 
-  // ❗ FEATURES ARTIK HAZIR GELİYOR
   const features = Array.isArray(service.features)
     ? service.features
     : [];
@@ -36,7 +33,6 @@ export default function ServiceCard({ service, index, isVisible }) {
       ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
-      {/* ARKA PLAN GLOW */}
       <div
         className="pointer-events-none absolute inset-0
         bg-gradient-to-r from-blue-500 to-cyan-500
@@ -88,7 +84,6 @@ export default function ServiceCard({ service, index, isVisible }) {
         </ul>
       </div>
 
-      {/* SAĞ ÜST IŞIK */}
       <div className="pointer-events-none absolute top-0 right-0 w-20 h-20
         opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10">
         <div className="absolute top-0 right-0 w-full h-full
