@@ -3,12 +3,12 @@ export const dynamic = "force-dynamic";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
 import prisma from "@/lib/prisma";
 
 export default async function MessagesPage() {
-  // 🔐 AUTH KONTROLÜ
-  const isAdmin = cookies().get("admin-auth");
+  const cookieStore = cookies();
+  const isAdmin = cookieStore.get("admin-auth")?.value;
+
   if (!isAdmin) {
     redirect("/admin/login");
   }
