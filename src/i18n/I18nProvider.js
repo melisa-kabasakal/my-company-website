@@ -1,16 +1,14 @@
 "use client";
 
-import { IntlProvider } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 import { createContext, useContext, useEffect, useState } from "react";
 import tr from "./messages/tr.json";
 import en from "./messages/en.json";
 
 const messages = { tr, en };
 
-// 👉 Locale context
 const LocaleContext = createContext(null);
 
-// 👉 Hook (Navbar buradan kullanacak)
 export function useLocale() {
   const ctx = useContext(LocaleContext);
   if (!ctx) {
@@ -36,9 +34,12 @@ export default function I18nProvider({ children }) {
 
   return (
     <LocaleContext.Provider value={{ locale, changeLocale }}>
-      <IntlProvider locale={locale} messages={messages[locale]}>
+      <NextIntlClientProvider
+        locale={locale}
+        messages={messages[locale]}
+      >
         {children}
-      </IntlProvider>
+      </NextIntlClientProvider>
     </LocaleContext.Provider>
   );
 }
