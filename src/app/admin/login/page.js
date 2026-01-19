@@ -50,9 +50,13 @@ export default function AdminLoginPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="bg-black text-white w-full py-2">
+        <button
+          type="submit"
+          className="w-full rounded-lg border border-blue-600 py-2 font-medium text-blue-500 hover:bg-blue-600 hover:text-white transition"
+        >
           Giriş Yap
         </button>
+
       </form>
     </div>
   );
