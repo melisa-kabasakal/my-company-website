@@ -3,11 +3,16 @@
 import { useTranslations } from "next-intl";
 import { useLocale } from "@/i18n/I18nProvider";
 
+import {
+  FaLinkedinIn,
+  FaXTwitter,
+  FaInstagram,
+  FaFacebookF,
+} from "react-icons/fa6";
+
 export default function Footer({ scrollToSection, services = [] }) {
   const t = useTranslations("footer");
   const { locale } = useLocale();
-  
-
 
   return (
     <footer className="relative border-t border-gray-800/50 py-16 backdrop-blur-sm">
@@ -25,23 +30,27 @@ export default function Footer({ scrollToSection, services = [] }) {
 
             <div className="flex gap-4">
               {[
-                { name: "LinkedIn", href: "#" },
-                { name: "Twitter", href: "#" },
-                { name: "Instagram", href: "#" },
-                { name: "Facebook", href: "#" },
+                { name: "LinkedIn", href: "#", icon: <FaLinkedinIn /> },
+                { name: "X", href: "#", icon: <FaXTwitter /> },
+                { name: "Instagram", href: "#", icon: <FaInstagram /> },
+                { name: "Facebook", href: "#", icon: <FaFacebookF /> },
               ].map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={social.name}
                   className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 hover:from-blue-500 hover:to-emerald-600 transition-all duration-500 flex items-center justify-center text-gray-400 hover:text-white transform hover:scale-110"
                 >
-                  {social.name[0]}
+                  <span className="text-xl">
+                    {social.icon}
+                  </span>
                 </a>
               ))}
             </div>
           </div>
+
           <div>
             <h4 className="text-white text-lg font-semibold mb-6">
               {t("quickLinks")}
@@ -61,7 +70,6 @@ export default function Footer({ scrollToSection, services = [] }) {
             </ul>
           </div>
 
-          {/* SERVICES */}
           <div>
             <h4 className="text-white text-lg font-semibold mb-6">
               {t("servicesTitle")}
@@ -94,7 +102,6 @@ export default function Footer({ scrollToSection, services = [] }) {
                 );
               })}
 
-
               {services.length === 0 && (
                 <li className="text-gray-600 text-sm">
                   {t("noServices")}
@@ -102,10 +109,7 @@ export default function Footer({ scrollToSection, services = [] }) {
               )}
             </ul>
           </div>
-
         </div>
-
-        {/* BOTTOM */}
         <div className="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-600 text-sm flex items-center gap-2">
             © {new Date().getFullYear()} muntech
