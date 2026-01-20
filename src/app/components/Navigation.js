@@ -19,7 +19,6 @@ export default function Navigation({ scrollY, scrollToSection }) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* TEXT LOGO (SADECE BU KALDI) */}
         <div
           onClick={() => scrollToSection("home")}
           className="cursor-pointer select-none"
@@ -29,7 +28,6 @@ export default function Navigation({ scrollY, scrollToSection }) {
           </span>
         </div>
 
-        {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-8">
           {sections.map((section) => (
             <button
@@ -51,7 +49,6 @@ export default function Navigation({ scrollY, scrollToSection }) {
             </button>
           ))}
 
-          {/* LANGUAGE SWITCH */}
           <div className="flex items-center rounded-full bg-zinc-800/80 border border-zinc-700 p-1">
             {["tr", "en"].map((lng) => (
               <button
@@ -69,7 +66,6 @@ export default function Navigation({ scrollY, scrollToSection }) {
           </div>
         </div>
 
-        {/* MOBILE TOGGLE */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="md:hidden text-white text-2xl"
@@ -78,7 +74,6 @@ export default function Navigation({ scrollY, scrollToSection }) {
         </button>
       </div>
 
-      {/* MOBILE MENU */}
       <div
         className={`md:hidden bg-black/95 backdrop-blur-xl border-t border-gray-800/50 transition-all duration-300 ${
           isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
@@ -98,7 +93,6 @@ export default function Navigation({ scrollY, scrollToSection }) {
             </button>
           ))}
 
-          {/* MOBILE LANGUAGE */}
           <div className="flex gap-2 pt-4">
             {["tr", "en"].map((lng) => (
               <button
