@@ -22,7 +22,7 @@ async function saveSettings(formData) {
 }
 
 export default async function SettingsPage() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   if (!cookieStore.get("admin-auth")) {
     redirect("/admin/login");
