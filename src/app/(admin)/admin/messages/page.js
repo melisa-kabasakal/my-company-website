@@ -7,11 +7,10 @@ export const dynamic = "force-dynamic";
 
 export default async function MessagesPage() {
   const cookieStore = await cookies();
-  const isAdmin = cookieStore.has("admin-auth");
+  const admin = cookieStore.get("admin-auth");
 
-  if (!isAdmin) {
-    redirect("/admin/login");
-  }
+  if (!admin) redirect("/admin/login");
+
 
   const messages = await prisma.contactMessage.findMany({
     orderBy: { createdAt: "desc" },
