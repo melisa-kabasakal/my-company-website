@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { NextIntlClientProvider } from "next-intl";
 import tr from "./messages/tr.json";
 import en from "./messages/en.json";
 
@@ -14,15 +15,6 @@ export function useLocale() {
     throw new Error("useLocale must be used inside I18nProvider");
   }
   return ctx;
-}
-
-/**
- * Basit çeviri hook’u
- * useT("hero").title gibi kullanılır
- */
-export function useT(section) {
-  const { locale } = useLocale();
-  return messages[locale]?.[section] || {};
 }
 
 export default function I18nProvider({ children }) {
@@ -42,7 +34,9 @@ export default function I18nProvider({ children }) {
 
   return (
     <LocaleContext.Provider value={{ locale, changeLocale }}>
-      {children}
+      <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+        {children}
+      </NextIntlClientProvider>
     </LocaleContext.Provider>
   );
 }
