@@ -1,14 +1,13 @@
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 
-export default async function MessagesPage() {
-  const cookieStore = cookies();
-  const isAdmin = cookieStore.has("admin-auth");
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
+export default async function MessagesPage() {
+  const cookieStore = await cookies();
+  const isAdmin = cookieStore.has("admin-auth");
 
   if (!isAdmin) {
     redirect("/admin/login");
@@ -34,7 +33,6 @@ export default async function MessagesPage() {
           Henüz mesaj yok.
         </div>
       )}
-
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {messages.map((m) => (
           <div
@@ -50,6 +48,7 @@ export default async function MessagesPage() {
                   {m.email}
                 </p>
               </div>
+
               <span className="text-xs text-zinc-500 whitespace-nowrap">
                 {new Date(m.createdAt).toLocaleDateString("tr-TR")}
               </span>
