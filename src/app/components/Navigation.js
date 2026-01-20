@@ -22,7 +22,7 @@ export default function Navigation({ scrollY, scrollToSection }) {
         {/* LOGO */}
         <div className="flex items-center gap-3 cursor-pointer">
           <img
-            src="/logo/muntech-logo.png"
+            src="/muntech-logo.png"
             alt="MunTech Logo"
             className="h-12 w-auto object-contain"
           />
