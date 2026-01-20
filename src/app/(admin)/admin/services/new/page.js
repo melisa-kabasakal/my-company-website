@@ -7,6 +7,11 @@ export default function AdminServicesPage() {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
 
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
+
   useEffect(() => {
     fetch("/api/admin/check")
       .then((r) => {
@@ -50,7 +55,7 @@ export default function AdminServicesPage() {
       .upload(filePath, file);
 
     if (error) {
-      alert("Görsel yüklenemedi");
+      setStatus({ type: "error", message: "Görsel yüklenemedi" });
       return;
     }
 
@@ -64,8 +69,23 @@ export default function AdminServicesPage() {
   if (!checked) return null;
 
   return (
-    <div className="p-8 max-w-6xl">
-      ADMIN SERVICES ÇALIŞIYOR
+    <div className="p-8 max-w-6xl space-y-6">
+      {status.message && (
+        <div
+          className={`p-4 rounded-xl text-sm font-medium border transition-all
+            ${
+              status.type === "error"
+                ? "bg-red-500/10 text-red-600 border-red-500/30"
+                : "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
+            }`}
+        >
+          {status.message}
+        </div>
+      )}
+
+      <div className="text-lg font-semibold">
+        ADMIN SERVICES ÇALIŞIYOR
+      </div>
     </div>
   );
 }

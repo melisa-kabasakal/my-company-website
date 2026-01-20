@@ -7,9 +7,14 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setStatus({ type: "", message: "" });
 
     const res = await fetch("/api/admin/login", {
       method: "POST",
@@ -20,7 +25,7 @@ export default function AdminLoginPage() {
     if (res.ok) {
       router.push("/admin/settings");
     } else {
-      alert("Giriş başarısız");
+      setStatus({ type: "error", message: "Giriş başarısız" });
     }
   }
 
@@ -33,6 +38,19 @@ export default function AdminLoginPage() {
         <h1 className="text-lg font-semibold text-center">
           Admin Login
         </h1>
+
+        {status.message && (
+          <div
+            className={`p-3 rounded text-sm font-medium border
+              ${
+                status.type === "error"
+                  ? "bg-red-500/10 text-red-600 border-red-500/30"
+                  : "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
+              }`}
+          >
+            {status.message}
+          </div>
+        )}
 
         <input
           type="email"
@@ -56,7 +74,6 @@ export default function AdminLoginPage() {
         >
           Giriş Yap
         </button>
-
       </form>
     </div>
   );
