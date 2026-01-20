@@ -13,7 +13,12 @@ import "./styles/animations.css";
 export default function HomeClient() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
-  const [isVisible, setIsVisible] = useState({});
+  const [isVisible, setIsVisible] = useState({
+  services: true,
+  about: true,
+  contact: true,
+});
+
   const [services, setServices] = useState([]);
 
   useEffect(() => {
