@@ -1,9 +1,8 @@
 "use client";
-
-import { useLocale } from "@/i18n/I18nProvider";
+;
 
 export default function ServiceCard({ service, index, isVisible }) {
-  const { locale } = useLocale();
+  const locale = "tr";
   const parseText = (value) => {
     if (!value) return "";
     if (typeof value === "string") {

@@ -1,12 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useLocale } from "@/i18n/I18nProvider";
 import ServiceCard from "./ServiceCard";
 
 export default function ServicesSection({ services = [], isVisible }) {
   const t = useTranslations("services");
-  const { locale } = useLocale(); 
+  const locale = "tr"; 
 
   return (
     <section id="services" className="py-32 px-6 relative" data-animate>
