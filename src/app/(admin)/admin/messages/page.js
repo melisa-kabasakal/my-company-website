@@ -6,8 +6,9 @@ import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 
 export default async function MessagesPage() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const isAdmin = cookieStore.get("admin-auth");
+
 
 
   if (!isAdmin) {
