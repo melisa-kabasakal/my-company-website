@@ -1,8 +1,10 @@
 "use client";
-import { useTranslations } from "next-intl";
+import { useT } from "@/i18n/I18nProvider";
+
 
 export default function HeroSection({ scrollToSection }) {
-  const t = useTranslations("hero");
+  const t = useT("hero");
+
 
   return (
     <section

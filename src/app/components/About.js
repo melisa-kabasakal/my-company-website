@@ -1,8 +1,10 @@
 "use client";
-import { useTranslations } from "next-intl";
+import { useT } from "@/i18n/I18nProvider";
+
 
 export default function AboutSection({ isVisible, scrollToSection }) {
-  const t = useTranslations("about");
+  const t = useT("about");
+
 
   return (
     <section id="about" className="py-32 px-6 relative" data-animate>

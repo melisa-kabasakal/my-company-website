@@ -1,10 +1,11 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useT } from "@/i18n/I18nProvider";
 import { useLocale } from "@/i18n/I18nProvider";
 
 export default function Footer({ scrollToSection, services = [] }) {
-  const t = useTranslations("footer");
+  const t = useT("footer");
+
   const { locale } = useLocale();
   
 

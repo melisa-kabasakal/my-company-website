@@ -1,6 +1,5 @@
 "use client";
 
-import { NextIntlClientProvider } from "next-intl";
 import { createContext, useContext, useEffect, useState } from "react";
 import tr from "./messages/tr.json";
 import en from "./messages/en.json";
@@ -17,13 +16,22 @@ export function useLocale() {
   return ctx;
 }
 
+/**
+ * Basit çeviri hook’u
+ * useT("hero").title gibi kullanılır
+ */
+export function useT(section) {
+  const { locale } = useLocale();
+  return messages[locale]?.[section] || {};
+}
+
 export default function I18nProvider({ children }) {
   const [locale, setLocale] = useState("tr");
 
   useEffect(() => {
-    const savedLocale = localStorage.getItem("locale");
-    if (savedLocale === "tr" || savedLocale === "en") {
-      setLocale(savedLocale);
+    const saved = localStorage.getItem("locale");
+    if (saved === "tr" || saved === "en") {
+      setLocale(saved);
     }
   }, []);
 
@@ -34,12 +42,7 @@ export default function I18nProvider({ children }) {
 
   return (
     <LocaleContext.Provider value={{ locale, changeLocale }}>
-      <NextIntlClientProvider
-        locale={locale}
-        messages={messages[locale]}
-      >
-        {children}
-      </NextIntlClientProvider>
+      {children}
     </LocaleContext.Provider>
   );
 }

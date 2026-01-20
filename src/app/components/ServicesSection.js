@@ -1,11 +1,12 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useT } from "@/i18n/I18nProvider";
 import { useLocale } from "@/i18n/I18nProvider";
 import ServiceCard from "./ServiceCard";
 
 export default function ServicesSection({ services = [], isVisible }) {
-  const t = useTranslations("services");
+  const t = useT("services");
+
   const { locale } = useLocale(); 
 
   return (
