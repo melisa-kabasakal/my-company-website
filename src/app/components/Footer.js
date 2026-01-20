@@ -69,7 +69,8 @@ export default function Footer({ scrollToSection, services = [] }) {
             </h4>
 
             <ul className="space-y-3">
-              {services.map((service) => {
+              {Array.isArray(services) && services.map((service) => {
+
                 let title = "";
 
                 if (typeof service.title === "string") {

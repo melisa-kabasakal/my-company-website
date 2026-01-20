@@ -32,7 +32,7 @@ export default function ServicesSection({ services = [], isVisible }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, i) => {
+          {Array.isArray(services) && services.map((service) => {
             let parsedFeatures = [];
 
             if (typeof service.features === "string") {
