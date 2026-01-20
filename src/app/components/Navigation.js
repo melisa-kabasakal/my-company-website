@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
-import { useT } from "@/i18n/I18nProvider";
-
+import { useTranslations } from "next-intl";
 import { useLocale } from "@/i18n/I18nProvider";
 
 export default function Navigation({ scrollY, scrollToSection }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { locale, changeLocale } = useLocale();
-  const t = useT("nav");
-
+  const t = useTranslations("nav");
 
   const sections = ["home", "services", "about", "contact"];
 

@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useT } from "@/i18n/I18nProvider";
-
+import { useTranslations } from "next-intl";
 
 export default function ContactSection({ isVisible }) {
-  const t = useT("contact");
-
+  const t = useTranslations("contact");
 
   const [form, setForm] = useState({
     name: "",

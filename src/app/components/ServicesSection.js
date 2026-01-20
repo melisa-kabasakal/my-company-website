@@ -1,12 +1,11 @@
 "use client";
 
-import { useT } from "@/i18n/I18nProvider";
+import { useTranslations } from "next-intl";
 import { useLocale } from "@/i18n/I18nProvider";
 import ServiceCard from "./ServiceCard";
 
 export default function ServicesSection({ services = [], isVisible }) {
-  const t = useT("services");
-
+  const t = useTranslations("services");
   const { locale } = useLocale(); 
 
   return (
@@ -32,7 +31,7 @@ export default function ServicesSection({ services = [], isVisible }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {Array.isArray(services) && services.map((service) => {
+          {services.map((service, i) => {
             let parsedFeatures = [];
 
             if (typeof service.features === "string") {

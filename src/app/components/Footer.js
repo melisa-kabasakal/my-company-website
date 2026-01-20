@@ -1,11 +1,10 @@
 "use client";
 
-import { useT } from "@/i18n/I18nProvider";
+import { useTranslations } from "next-intl";
 import { useLocale } from "@/i18n/I18nProvider";
 
 export default function Footer({ scrollToSection, services = [] }) {
-  const t = useT("footer");
-
+  const t = useTranslations("footer");
   const { locale } = useLocale();
   
 
@@ -69,8 +68,7 @@ export default function Footer({ scrollToSection, services = [] }) {
             </h4>
 
             <ul className="space-y-3">
-              {Array.isArray(services) && services.map((service) => {
-
+              {services.map((service) => {
                 let title = "";
 
                 if (typeof service.title === "string") {
