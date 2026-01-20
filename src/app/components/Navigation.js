@@ -19,15 +19,12 @@ export default function Navigation({ scrollY, scrollToSection }) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* LOGO */}
-        <div className="flex items-center gap-3 cursor-pointer">
-          <img
-            src="/muntech-logo.png"
-            alt="MunTech Logo"
-            className="h-12 w-auto object-contain"
-          />
-
-          <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-500 bg-clip-text text-transparent animate-gradient">
+        {/* TEXT LOGO (SADECE BU KALDI) */}
+        <div
+          onClick={() => scrollToSection("home")}
+          className="cursor-pointer select-none"
+        >
+          <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-500 bg-clip-text text-transparent animate-gradient">
             muntech
           </span>
         </div>
@@ -75,7 +72,7 @@ export default function Navigation({ scrollY, scrollToSection }) {
         {/* MOBILE TOGGLE */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden text-white"
+          className="md:hidden text-white text-2xl"
         >
           ☰
         </button>
