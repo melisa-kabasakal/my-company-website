@@ -11,10 +11,11 @@ export async function POST(req) {
 
     response.cookies.set("admin-auth", "true", {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       path: "/",
     });
+
 
     return response;
   }
