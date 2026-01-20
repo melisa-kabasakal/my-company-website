@@ -1,9 +1,9 @@
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
-
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
 
 async function saveSettings(formData) {
   "use server";
@@ -18,12 +18,10 @@ async function saveSettings(formData) {
 }
 
 export default async function SettingsPage() {
-  const cookieStore = await cookies();
-  const adminCookie = cookieStore.get("admin-auth");
-
-  if (!adminCookie) {
+  if (!cookies().has("admin-auth")) {
     redirect("/admin/login");
   }
+
   const settings =
     (await prisma.siteSettings.findFirst()) ??
     (await prisma.siteSettings.create({
@@ -32,39 +30,14 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-3xl">
-      <h1 className="text-2xl font-semibold mb-6">
-        Ayarlar
-      </h1>
+      <h1 className="text-2xl font-semibold mb-6">Ayarlar</h1>
 
       <form action={saveSettings} className="space-y-4">
-        <input
-          name="email"
-          placeholder="E-posta"
-          defaultValue={settings.email}
-          className="w-full px-3 py-2 rounded border"
-        />
+        <input name="email" defaultValue={settings.email} />
+        <input name="phone" defaultValue={settings.phone} />
+        <textarea name="address" defaultValue={settings.address} />
 
-        <input
-          name="phone"
-          placeholder="Telefon"
-          defaultValue={settings.phone}
-          className="w-full px-3 py-2 rounded border"
-        />
-
-        <textarea
-          name="address"
-          placeholder="Adres"
-          defaultValue={settings.address}
-          className="w-full px-3 py-2 rounded border"
-          rows={4}
-        />
-
-        <button
-          type="submit"
-          className="px-4 py-2 rounded bg-black text-white"
-        >
-          Kaydet
-        </button>
+        <button type="submit">Kaydet</button>
       </form>
     </div>
   );
