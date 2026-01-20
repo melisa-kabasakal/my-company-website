@@ -22,10 +22,11 @@ export default function Navigation({ scrollY, scrollToSection }) {
         {/* LOGO */}
         <div className="flex items-center gap-3 cursor-pointer">
           <img
-            src="/logo.png"
-            alt="MunTech"
-            className="h-14 w-auto object-contain mix-blend-lighten contrast-125 brightness-110"
+            src="/logo/muntech-logo.png"
+            alt="MunTech Logo"
+            className="h-12 w-auto object-contain"
           />
+
           <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-500 bg-clip-text text-transparent animate-gradient">
             muntech
           </span>
