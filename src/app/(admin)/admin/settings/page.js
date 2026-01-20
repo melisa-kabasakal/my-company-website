@@ -18,7 +18,9 @@ async function saveSettings(formData) {
 }
 
 export default async function SettingsPage() {
-  if (!cookies().has("admin-auth")) {
+  const cookieStore = cookies();
+
+  if (!cookieStore.get("admin-auth")) {
     redirect("/admin/login");
   }
 
@@ -36,9 +38,9 @@ export default async function SettingsPage() {
         <input name="email" defaultValue={settings.email} />
         <input name="phone" defaultValue={settings.phone} />
         <textarea name="address" defaultValue={settings.address} />
-
         <button type="submit">Kaydet</button>
       </form>
     </div>
   );
 }
+
