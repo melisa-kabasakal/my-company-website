@@ -14,6 +14,11 @@ export default function AdminServicesPage() {
     image: "",
   });
 
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
+
   const fileRef = useRef(null);
 
   const loadServices = async () => {
@@ -36,7 +41,7 @@ export default function AdminServicesPage() {
       .upload(filePath, file);
 
     if (error) {
-      alert("Görsel yüklenemedi");
+      setStatus({ type: "error", message: "Görsel yüklenemedi" });
       return;
     }
 
@@ -48,37 +53,51 @@ export default function AdminServicesPage() {
   };
 
   const submit = async () => {
+    setStatus({ type: "", message: "" });
+
     if (
       !form.title.tr ||
       !form.title.en ||
       !form.description.tr ||
       !form.description.en
     ) {
-      alert("Türkçe ve İngilizce alanların tamamını doldur");
+      setStatus({
+        type: "error",
+        message: "Türkçe ve İngilizce alanların tamamını doldur",
+      });
       return;
     }
 
-    await fetch("/api/services", {
-      method: editingId ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: editingId,
-        title: JSON.stringify(form.title),
-        description: JSON.stringify(form.description),
-        features: JSON.stringify(form.features),
-        image: form.image,
-      }),
-    });
+    try {
+      await fetch("/api/services", {
+        method: editingId ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: editingId,
+          title: JSON.stringify(form.title),
+          description: JSON.stringify(form.description),
+          features: JSON.stringify(form.features),
+          image: form.image,
+        }),
+      });
 
-    setForm({
-      title: { tr: "", en: "" },
-      description: { tr: "", en: "" },
-      features: { tr: "", en: "" },
-      image: "",
-    });
+      setStatus({
+        type: "success",
+        message: editingId ? "Hizmet güncellendi" : "Hizmet eklendi",
+      });
 
-    setEditingId(null);
-    loadServices();
+      setForm({
+        title: { tr: "", en: "" },
+        description: { tr: "", en: "" },
+        features: { tr: "", en: "" },
+        image: "",
+      });
+
+      setEditingId(null);
+      loadServices();
+    } catch {
+      setStatus({ type: "error", message: "Bir hata oluştu" });
+    }
   };
 
   const editService = (s) => {
@@ -102,6 +121,18 @@ export default function AdminServicesPage() {
       <h1 className="text-2xl font-bold">
         {editingId ? "Hizmeti Düzenle" : "Hizmet Ekle"}
       </h1>
+      {status.message && (
+        <div
+          className={`p-4 rounded-xl text-sm font-medium border transition-all
+            ${
+              status.type === "error"
+                ? "bg-red-500/10 text-red-600 border-red-500/30"
+                : "bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
+            }`}
+        >
+          {status.message}
+        </div>
+      )}
 
       <div className="space-y-2 max-w-md">
         {form.image && (
@@ -184,7 +215,7 @@ export default function AdminServicesPage() {
           />
         </div>
 
-
+        {/* EN */}
         <div className="space-y-3">
           <h2 className="font-semibold text-lg">English</h2>
 
@@ -244,16 +275,15 @@ export default function AdminServicesPage() {
             className="flex justify-between items-center border p-3 rounded"
           >
             <div>
-            {(() => {
-              const title =
-                typeof s.title === "string" && s.title.startsWith("{")
-                  ? JSON.parse(s.title)
-                  : { tr: s.title, en: s.title };
+              {(() => {
+                const title =
+                  typeof s.title === "string" && s.title.startsWith("{")
+                    ? JSON.parse(s.title)
+                    : { tr: s.title, en: s.title };
 
-              return `${title.tr} / ${title.en}`;
-            })()}
-          </div>
-
+                return `${title.tr} / ${title.en}`;
+              })()}
+            </div>
 
             <div className="flex gap-2">
               <button
