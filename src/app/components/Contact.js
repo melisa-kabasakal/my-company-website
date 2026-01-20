@@ -14,35 +14,47 @@ export default function ContactSection({ isVisible }) {
     message: "",
   });
 
+  // 🔔 SADECE BU EKLENDİ
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
+    setStatus({ type: "", message: "" });
+
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      alert(t("errors.email"));
+      setStatus({ type: "error", message: t("errors.email") });
       return;
     }
 
     if (!form.phone) {
-      alert(t("errors.phone"));
+      setStatus({ type: "error", message: t("errors.phone") });
       return;
     }
 
-    await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        company: form.company,
-        message: form.message,
-      }),
-    });
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          message: form.message,
+        }),
+      });
 
-    alert(t("success"));
-    setForm({ name: "", email: "", phone: "", company: "", message: "" });
+      setStatus({ type: "success", message: t("success") });
+      setForm({ name: "", email: "", phone: "", company: "", message: "" });
+    } catch {
+      setStatus({ type: "error", message: t("errors.general") });
+    }
   };
 
   return (
@@ -78,6 +90,21 @@ export default function ContactSection({ isVisible }) {
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-r from-blue-500 via-cyan-500 to-emerald-500 rounded-full blur-3xl opacity-10 animate-pulse-slow"></div>
 
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* 🔔 UYARI / BAŞARI MESAJI (SADECE EKLENDİ) */}
+            {status.message && (
+              <div
+                className={`md:col-span-2 p-4 rounded-xl text-sm font-medium transition-all duration-300
+                  ${
+                    status.type === "error"
+                      ? "bg-red-500/10 text-red-400 border border-red-500/30"
+                      : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                  }`}
+              >
+                {status.message}
+              </div>
+            )}
+
             <input
               name="name"
               value={form.name}
