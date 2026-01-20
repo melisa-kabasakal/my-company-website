@@ -1,6 +1,4 @@
-"use client";
-
-export const revalidate = false;
+export const dynamic = "force-dynamic";
 
 import HomeClient from "./HomeClient";
 

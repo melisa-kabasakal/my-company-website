@@ -17,47 +17,28 @@ export default function HomeClient() {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    const handleMouseMove = (e) =>
+    const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+    };
     const handleScroll = () => setScrollY(window.scrollY);
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("scroll", handleScroll);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible((prev) => ({
-              ...prev,
-              [entry.target.id]: true,
-            }));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll("[data-animate]").forEach((el) => {
-      observer.observe(el);
-    });
-
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
     };
   }, []);
 
   useEffect(() => {
-    fetch("/api/services")
+    fetch("/api/services", { cache: "no-store" })
       .then((res) => res.json())
-      .then((data) => setServices(Array.isArray(data) ? data : []));
+      .then(setServices);
   }, []);
 
   const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
