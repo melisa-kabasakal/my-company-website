@@ -13,8 +13,6 @@ export default function ContactSection({ isVisible }) {
     company: "",
     message: "",
   });
-
-  // 🔔 SADECE BU EKLENDİ
   const [status, setStatus] = useState({
     type: "",
     message: "",

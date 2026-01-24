@@ -28,3 +28,23 @@ export async function POST(request) {
     return Response.json({ error: "Server error" }, { status: 500 });
   }
 }
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = Number(searchParams.get("id"));
+
+    if (!id) {
+      return Response.json({ error: "ID yok" }, { status: 400 });
+    }
+
+    await prisma.contactMessage.delete({
+      where: { id },
+    });
+
+    return Response.json({ success: true });
+  } catch (err) {
+    console.error("DELETE ERROR:", err);
+    return Response.json({ error: "Server error" }, { status: 500 });
+  }
+}
